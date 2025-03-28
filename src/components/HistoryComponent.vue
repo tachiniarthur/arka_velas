@@ -4,7 +4,7 @@
       <h2 class="text-3xl mb-6 font-bold border-b-2 pb-2 text-[#3A4766]">História</h2>
       <div class="flex gap-x-6">
         <div class="w-2/3">
-          <img src="../assets/img1.png" alt="History Image" class="w-full h-auto" />
+          <img :src="'img1.png'" alt="History Image" class="w-full h-auto" />
         </div>
         <div class="w-1/3">
           <p class="text-lg font-light text-[#3A4766]">

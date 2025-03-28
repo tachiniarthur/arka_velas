@@ -4,7 +4,7 @@
       <div class="flex justify-center items-center py-4">
         <ul class="flex gap-6 items-center">
           <router-link to="/">
-            <img src="../assets/logo.png" alt="Logo" class="h-8" />
+            <img :src="'logo.png'" alt="Logo" class="h-8" />
           </router-link>
           <li v-for="item in items" :key="item.name">
             <router-link
@@ -44,7 +44,7 @@
     <div
       class="bg-white fixed w-full top-0 right-0 z-50 md:hidden flex justify-between py-3.5 px-10"
     >
-      <img src="../assets/logo.png" alt="Logo" class="h-8" />
+      <img :src="'logo.png'" alt="Logo" class="h-8" />
       <button @click="toggleMobileMenu" class="focus:outline-none">
         <Bars3Icon class="h-8 w-8 text-[#3A4766]" />
       </button>
@@ -120,8 +120,8 @@ import { Bars3Icon, XMarkIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
 
 const items = ref([
   { name: 'Queridinho', url: '#' },
-  { name: 'Produtos', url: 'products' },
-  { name: 'Sazonal', url: '#', sub: true }, // Item que abre o submenu
+  { name: 'Produtos', url: '/velas' },
+  { name: 'Sazonal', url: '#', sub: true },
   { name: 'Sobre', url: '#' },
 ])
 

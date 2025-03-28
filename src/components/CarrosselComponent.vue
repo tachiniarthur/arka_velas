@@ -20,11 +20,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 
-import img1 from '../assets/img1.png'
-import img2 from '../assets/img2.png'
-import img3 from '../assets/img3.png'
-
-const images = ref([img1, img2, img3])
+const images = ref(['img1.png', 'img2.png', 'img3.png'])
 
 const modules = [Autoplay, Pagination]
 </script>

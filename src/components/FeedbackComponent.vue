@@ -49,7 +49,7 @@ onUnmounted(() => {
                   class="flex items-center justify-center space-x-2 hover:scale-110 duration-500 z-30"
                 >
                   <img
-                    src="../assets/img1.png"
+                    :src="'img1.png'"
                     alt="Photo user recommendation"
                     class="rounded-full h-10 w-10"
                   />
@@ -66,7 +66,7 @@ onUnmounted(() => {
                   class="flex items-center justify-center space-x-2 hover:scale-110 duration-500 z-30"
                 >
                   <img
-                    src="../assets/img2.png"
+                    :src="'img2.png'"
                     alt="Photo user recommendation"
                     class="rounded-full h-10 w-10"
                   />

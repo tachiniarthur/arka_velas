@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
   <section class="w-full">
     <div class="flex justify-center items-center flex-col py-10">
@@ -8,7 +10,7 @@
         >
           <img
             class="w-full h-full object-cover rounded-lg"
-            src="../assets/img1.png"
+            :src="'img1.png'"
             alt="Frutas vermelhas"
           />
           <h3 class="mt-2 text-center text-lg text-[#EAE8DA]">Frutas vermelhas</h3>
@@ -23,7 +25,7 @@
         >
           <img
             class="w-full h-full object-cover rounded-lg"
-            src="../assets/img1.png"
+            :src="'img1.png'"
             alt="Frutas vermelhas"
           />
           <h3 class="mt-2 text-center text-lg text-[#EAE8DA]">Frutas vermelhas</h3>
@@ -38,7 +40,7 @@
         >
           <img
             class="w-full h-full object-cover rounded-lg"
-            src="../assets/img1.png"
+            :src="'img1.png'"
             alt="Frutas vermelhas"
           />
           <h3 class="mt-2 text-center text-lg text-[#EAE8DA]">Frutas vermelhas</h3>
