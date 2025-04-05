@@ -1,102 +1,97 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { ref, computed } from 'vue';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 
-const currentSlide = ref(0)
-let interval = null
+const feedbacks = ref([
+  { id: 1, name: 'Pessoa 1', text: 'Primeiro feedback' },
+  { id: 2, name: 'Pessoa 2', text: 'Segundo feedback' },
+  { id: 3, name: 'Pessoa 3', text: 'Terceiro feedback' },
+  { id: 4, name: 'Pessoa 4', text: 'Quarto feedback' },
+  { id: 5, name: 'Pessoa 5', text: 'Quinto feedback' },
+  { id: 6, name: 'Pessoa 6', text: 'Sexto feedback' },
+]);
+
+const visibleFeedbacks = ref([]);
+const currentPosition = ref(0);
+
+const isFirstItem = computed(() => currentPosition.value === 0);
+const isLastItem = computed(() => currentPosition.value === feedbacks.value.length - 3);
+
+const initializeVisibleFeedbacks = () => {
+  visibleFeedbacks.value = feedbacks.value.slice(0, 3);
+  currentPosition.value = 0;
+};
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % 2
-}
+  if (isLastItem.value) return;
+  currentPosition.value++;
+  visibleFeedbacks.value = feedbacks.value.slice(currentPosition.value, currentPosition.value + 3);
+};
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + 2) % 2
-}
+  if (isFirstItem.value) return;
+  currentPosition.value--;
+  visibleFeedbacks.value = feedbacks.value.slice(currentPosition.value, currentPosition.value + 3);
+};
 
-const startAutoplay = () => {
-  interval = setInterval(nextSlide, 10000)
-}
+const goToSlide = (index) => {
+  currentPosition.value = index;
+  visibleFeedbacks.value = feedbacks.value.slice(index, index + 3);
+};
 
-const stopAutoplay = () => {
-  if (interval) {
-    clearInterval(interval)
-  }
-}
-
-onMounted(() => {
-  startAutoplay()
-})
-
-onUnmounted(() => {
-  stopAutoplay()
-})
+initializeVisibleFeedbacks();
 </script>
 
 <template>
   <section class="w-full">
-    <div class="flex justify-center items-center flex-col py-10">
-      <h2 class="text-3xl mb-6 font-bold border-b-2 pb-2 text-[#3A4766]">Feedbacks</h2>
+    <div class="flex justify-center items-center flex-col py-10 relative">
+      <h2 class="text-3xl mb-6 text-gray-800 uppercase">Feedback</h2>
 
-      <div class="relative w-full px-14">
-        <div class="overflow-hidden relative">
-          <div
-            class="flex transition-transform duration-500 ease-in-out items-center"
-            :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+      <div class="w-full px-14">
+        <div class="relative">
+          <button
+            @click="prevSlide"
+            :disabled="isFirstItem"
+            :class="{ 'opacity-50 cursor-not-allowed': isFirstItem }"
+            class="absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-[#3A4766] text-[#EAE8DA] rounded-full z-20 hover:bg-[#2a3550]"
+            aria-label="Previous recommendation"
           >
-            <div class="w-full flex-shrink-0 px-14">
-              <div class="bg-white p-8 rounded-xl relative z-20">
-                <div
-                  class="flex items-center justify-center space-x-2 hover:scale-110 duration-500 z-30"
-                >
-                  <img
-                    :src="'img1.png'"
-                    alt="Photo user recommendation"
-                    class="rounded-full h-10 w-10"
-                  />
-                  <span class="text-xl font-bold tracking-tight text-gray-900">Pessoa 1</span>
+            <ChevronLeftIcon class="h-6 w-6" />
+          </button>
+
+          <div class="overflow-hidden">
+            <div class="flex items-center justify-center gap-4">
+              <div v-for="feedback in visibleFeedbacks" :key="feedback.id" class="w-1/3 flex-shrink-0">
+                <div class="bg-white p-8 rounded-xl h-full">
+                  <div class="flex items-center justify-center space-x-2">
+                    <span class="text-xl font-bold tracking-tight text-gray-900">{{ feedback.name }}</span>
+                  </div>
+                  <p class="mt-4 sm:text-lg leading-8 text-gray-600 text-center">"{{ feedback.text }}"</p>
                 </div>
-                <p class="mt-4 sm:text-lg leading-8 text-gray-600 text-center">
-                  "Primeiro feedkback"
-                </p>
-              </div>
-            </div>
-            <div class="w-full flex-shrink-0 px-14">
-              <div class="bg-white p-8 rounded-xl relative z-20">
-                <div
-                  class="flex items-center justify-center space-x-2 hover:scale-110 duration-500 z-30"
-                >
-                  <img
-                    :src="'img2.png'"
-                    alt="Photo user recommendation"
-                    class="rounded-full h-10 w-10"
-                  />
-                  <span class="text-xl font-bold tracking-tight text-gray-900">Pessoa 2</span>
-                </div>
-                <p class="mt-4 sm:text-lg leading-8 text-gray-600 text-center">
-                  "Segundo feedkback"
-                </p>
               </div>
             </div>
           </div>
 
-          <div class="absolute inset-0 flex justify-between items-center z-10 pointer-events-none">
-            <button
-              @click="prevSlide"
-              class="p-2 bg-[#3A4766] text-[#EAE8DA] rounded-full pointer-events-auto cursor-pointer"
-              aria-label="Previous recommendation"
-              title="Previous recommendation"
-            >
-              <ChevronLeftIcon class="h-6 w-6" />
-            </button>
-            <button
-              @click="nextSlide"
-              class="p-2 bg-[#3A4766] text-[#EAE8DA] rounded-full pointer-events-auto cursor-pointer"
-              aria-label="Next recommendation"
-              title="Next recommendation"
-            >
-              <ChevronRightIcon class="h-6 w-6" />
-            </button>
-          </div>
+          <button
+            @click="nextSlide"
+            :disabled="isLastItem"
+            :class="{ 'opacity-50 cursor-not-allowed': isLastItem }"
+            class="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-[#3A4766] text-[#EAE8DA] rounded-full z-20 hover:bg-[#2a3550]"
+            aria-label="Next recommendation"
+          >
+            <ChevronRightIcon class="h-6 w-6" />
+          </button>
+        </div>
+
+        <div class="flex justify-center mt-6 space-x-2">
+          <button
+            v-for="(_, index) in feedbacks.length - 2"
+            :key="index"
+            @click="goToSlide(index)"
+            :class="{ 'bg-[#3A4766]': currentPosition === index, 'bg-gray-300': currentPosition !== index }"
+            class="w-3 h-3 rounded-full focus:outline-none"
+            :aria-label="`Go to slide ${index + 1}`"
+          />
         </div>
       </div>
     </div>

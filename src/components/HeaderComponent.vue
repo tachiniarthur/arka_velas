@@ -1,7 +1,9 @@
 <template>
   <header>
     <nav class="bg-white fixed w-full top-0 z-50 hidden md:block">
-      <div class="flex justify-center items-center py-4">
+      <div class="relative flex justify-center items-center py-4">
+        <!-- Container centralizado -->
+        <!-- Conteúdo central (logo + itens) -->
         <ul class="flex gap-6 items-center">
           <router-link to="/">
             <img :src="'logo.png'" alt="Logo" class="h-8" />
@@ -10,12 +12,22 @@
             <router-link
               :to="item.url"
               @click="item.sub ? toggleSecondHeader() : null"
-              class="text-[#3A4766] border-b-2 border-transparent hover:border-[#3A4766] transition-all duration-300 ease-in-out pb-1.5"
+              class="text-[#3A4766] border-b-2 border-transparent uppercase hover:border-[#3A4766] transition-all duration-300 ease-in-out pb-1.5"
             >
               {{ item.name }}
             </router-link>
           </li>
         </ul>
+
+        <button type="button" class="absolute right-6 top-1/2 transform -translate-y-1/2">
+          <div class="relative">
+            <ShoppingBagIcon class="h-6 w-6 text-[#3A4766]" />
+            <span
+              class="absolute -top-2 -right-2 bg-[#3A4766] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              >3</span
+            >
+          </div>
+        </button>
       </div>
     </nav>
 
@@ -28,10 +40,7 @@
             </span>
             <div class="flex flex-col gap-2">
               <li v-for="item in subItem.items" :key="item.name">
-                <router-link
-                  :to="item.url"
-                  class="text-[#3A4766] font-light hover:font-medium transition duration-300"
-                >
+                <router-link :to="item.url" class="text-[#3A4766] font-light hover:font-medium transition duration-300">
                   {{ item.name }}
                 </router-link>
               </li>
@@ -41,24 +50,27 @@
       </div>
     </div>
 
-    <div
-      class="bg-white fixed w-full top-0 right-0 z-50 md:hidden flex justify-between py-3.5 px-10"
-    >
-      <img :src="'logo.png'" alt="Logo" class="h-8" />
+    <div class="bg-white fixed w-full top-0 right-0 z-50 md:hidden flex justify-between py-3.5 px-6">
       <button @click="toggleMobileMenu" class="focus:outline-none">
         <Bars3Icon class="h-8 w-8 text-[#3A4766]" />
       </button>
+      <img :src="'logo.png'" alt="Logo" class="h-8" />
+      <button type="button" class="">
+        <div class="relative">
+          <ShoppingBagIcon class="h-6 w-6 text-[#3A4766]" />
+          <span
+            class="absolute -top-2 -right-2 bg-[#3A4766] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+            >3</span
+          >
+        </div>
+      </button>
     </div>
 
-    <div
-      v-if="isMobileMenuOpen"
-      class="fixed inset-0 z-40 bg-black opacity-50"
-      @click="closeMobileMenu"
-    ></div>
+    <div v-if="isMobileMenuOpen" class="fixed inset-0 z-40 bg-black opacity-50" @click="closeMobileMenu"></div>
 
     <div
       v-if="isMobileMenuOpen"
-      class="fixed inset-y-0 right-0 z-50 w-80 bg-white shadow-lg transform transition duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
+      class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
     >
       <div class="p-4">
         <button @click="closeMobileMenu" class="p-2 focus:outline-none">
@@ -88,7 +100,7 @@
 
     <div
       v-if="isSubMenuOpen"
-      class="fixed inset-y-0 right-0 z-50 w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
+      class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
     >
       <div class="p-4">
         <button @click="closeSubMenu" class="p-2 focus:outline-none">
@@ -100,10 +112,7 @@
           </span>
           <div class="flex flex-col gap-2">
             <li v-for="item in subItem.items" :key="item.name">
-              <router-link
-                :to="item.url"
-                class="text-[#3A4766] font-light hover:font-medium transition duration-300"
-              >
+              <router-link :to="item.url" class="text-[#3A4766] font-light hover:font-medium transition duration-300">
                 {{ item.name }}
               </router-link>
             </li>
@@ -115,15 +124,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Bars3Icon, XMarkIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import { ref } from 'vue';
+import { Bars3Icon, XMarkIcon, ArrowLeftIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline';
 
 const items = ref([
   { name: 'Queridinho', url: '#' },
   { name: 'Produtos', url: '/velas' },
   { name: 'Sazonal', url: '#', sub: true },
   { name: 'Sobre', url: '#' },
-])
+]);
 
 const subItems = ref([
   {
@@ -142,35 +151,33 @@ const subItems = ref([
       { name: 'Vela 3', url: '#' },
     ],
   },
-])
+]);
 
-const showSecondHeader = ref(false)
+const showSecondHeader = ref(false);
 
-const isMobileMenuOpen = ref(false)
+const isMobileMenuOpen = ref(false);
 
-const isSubMenuOpen = ref(false)
+const isSubMenuOpen = ref(false);
 
 const toggleSecondHeader = () => {
-  showSecondHeader.value = !showSecondHeader.value
-}
+  showSecondHeader.value = !showSecondHeader.value;
+};
 
 const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
 
 const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false
-}
+  isMobileMenuOpen.value = false;
+};
 
 const openSubMenu = (item) => {
   if (item.sub) {
-    isSubMenuOpen.value = true
+    isSubMenuOpen.value = true;
   }
-}
+};
 
 const closeSubMenu = () => {
-  isSubMenuOpen.value = false
-}
+  isSubMenuOpen.value = false;
+};
 </script>
-
-<style scoped></style>

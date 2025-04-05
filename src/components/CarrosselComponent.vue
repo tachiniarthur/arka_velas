@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full h-[28rem] overflow-hidden">
+  <section class="relative w-full h-[30rem] overflow-hidden">
     <swiper
       :modules="modules"
       :autoplay="{ delay: 3000, disableOnInteraction: false }"
@@ -15,14 +15,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Pagination } from 'swiper/modules'
-import 'swiper/swiper-bundle.css'
+import { ref } from 'vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/swiper-bundle.css';
 
-const images = ref(['img1.png', 'img2.png', 'img3.png'])
+const images = ref(['img1.png', 'img2.png', 'img3.png']);
 
-const modules = [Autoplay, Pagination]
+const modules = [Autoplay, Pagination];
 </script>
 
 <style>
