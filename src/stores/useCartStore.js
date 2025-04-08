@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 export const useCartStore = defineStore('cart', () => {
   const savedItems = JSON.parse(Cookies.get('cartItems') || '[]');
   const savedCount = parseInt(Cookies.get('countItens') || '0');
+  const totalPrice = ref(0);
 
   const cartItems = ref(savedItems);
   const countItens = ref(savedCount);
@@ -13,12 +14,26 @@ export const useCartStore = defineStore('cart', () => {
     const existing = cartItems.value.find((item) => item.id === vela.id);
 
     if (existing) {
-      existing.quantity += 1;
+      existing.quantity += vela.quantity;
     } else {
-      cartItems.value.push({ ...vela, quantity: 1 });
+      cartItems.value.push({ ...vela });
     }
 
-    countItens.value++;
+    countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
+
+    // Corrigindo o cálculo do totalPrice
+    totalPrice.value = cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    console.log('Total Price:', totalPrice.value);
+  }
+
+  function removeItem(vela) {
+    const index = cartItems.value.findIndex((item) => item.id === vela.id);
+
+    if (index !== -1) {
+      cartItems.value.splice(index, 1);
+      countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
+    }
   }
 
   watch(
@@ -30,5 +45,5 @@ export const useCartStore = defineStore('cart', () => {
     { deep: true }
   );
 
-  return { cartItems, countItens, addToCart };
+  return { cartItems, countItens, addToCart, removeItem };
 });

@@ -1,5 +1,6 @@
 <script setup>
-import HeaderComponent from '@/components/HeaderComponent.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import CookieConsent from './components/CookieConsent.vue';
 </script>
 
 <template>
@@ -7,6 +8,7 @@ import HeaderComponent from '@/components/HeaderComponent.vue'
 
   <main class="mt-16">
     <router-view />
+    <CookieConsent />
   </main>
 </template>
 
