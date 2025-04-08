@@ -2,11 +2,9 @@
   <header>
     <nav class="bg-white fixed w-full top-0 z-50 hidden md:block">
       <div class="relative flex justify-center items-center py-4">
-        <!-- Container centralizado -->
-        <!-- Conteúdo central (logo + itens) -->
         <ul class="flex gap-6 items-center">
           <router-link to="/">
-            <img :src="'logo.png'" alt="Logo" class="h-8" />
+            <img :src="'/logo.png'" alt="Logo" class="h-8" />
           </router-link>
           <li v-for="item in items" :key="item.name">
             <router-link
@@ -19,12 +17,16 @@
           </li>
         </ul>
 
-        <button type="button" class="absolute right-6 top-1/2 transform -translate-y-1/2">
+        <button
+          type="button"
+          class="absolute right-10 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          @click="toggleStoreMenu()"
+        >
           <div class="relative">
             <ShoppingBagIcon class="h-6 w-6 text-[#3A4766]" />
             <span
               class="absolute -top-2 -right-2 bg-[#3A4766] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-              >3</span
+              >{{ cart.countItens }}</span
             >
           </div>
         </button>
@@ -54,13 +56,15 @@
       <button @click="toggleMobileMenu" class="focus:outline-none">
         <Bars3Icon class="h-8 w-8 text-[#3A4766]" />
       </button>
-      <img :src="'logo.png'" alt="Logo" class="h-8" />
-      <button type="button" class="">
+      <router-link to="/">
+        <img :src="'/logo.png'" alt="Logo" class="h-8" />
+      </router-link>
+      <button type="button" class="focus:outline-none" @click="toggleStoreMenu()">
         <div class="relative">
           <ShoppingBagIcon class="h-6 w-6 text-[#3A4766]" />
           <span
             class="absolute -top-2 -right-2 bg-[#3A4766] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-            >3</span
+            >{{ cart.countItens }}</span
           >
         </div>
       </button>
@@ -73,7 +77,7 @@
       class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
     >
       <div class="p-4">
-        <button @click="closeMobileMenu" class="p-2 focus:outline-none">
+        <button @click="closeMobileMenu" class="focus:outline-none">
           <XMarkIcon class="h-6 w-6 text-[#3A4766]" />
         </button>
         <ul class="mt-4 space-y-2">
@@ -98,12 +102,45 @@
       </div>
     </div>
 
+    <div v-if="showStoreMenu" class="fixed inset-0 z-40 bg-black opacity-50" @click="closeStoreMenu"></div>
+
+    <div
+      v-if="showStoreMenu"
+      class="fixed inset-y-0 right-0 z-50 w-80 bg-white shadow-lg transform transition duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
+    >
+      <div class="p-4">
+        <button @click="closeStoreMenu" class="focus:outline-none">
+          <XMarkIcon class="h-6 w-6 text-[#3A4766]" />
+        </button>
+        <ul class="mt-4 space-y-2">
+          <li class="flex flex-col gap-y-6" v-for="cartItem in cart.cartItems" :key="cartItem.id">
+            <div class="flex flex-col">
+              <router-link class="relative group" :to="'/vela/' + cartItem.id">
+                <img class="w-full h-full object-cover" :src="'/img1.png'" alt="Frutas vermelhas" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div
+                  class="absolute bottom-0 w-full h-auto justify-center items-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex"
+                >
+                  <span class="text-xl py-2 text-white">Visualizar</span>
+                </div>
+              </router-link>
+              <div class="flex items-end justify-between">
+                <span class="text-2xl font-light">{{ cartItem.name }}</span>
+                <span class="text-md font-light self-end">x{{ cartItem.quantity }}</span>
+              </div>
+              <span class="text-md font-light">{{ cartItem.price }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <div
       v-if="isSubMenuOpen"
       class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
     >
       <div class="p-4">
-        <button @click="closeSubMenu" class="p-2 focus:outline-none">
+        <button @click="closeSubMenu" class="focus:outline-none">
           <ArrowLeftIcon class="h-6 w-6 text-[#3A4766]" />
         </button>
         <ul class="flex flex-col gap-3 mt-4" v-for="subItem in subItems" :key="subItem.name">
@@ -124,12 +161,16 @@
 </template>
 
 <script setup>
+import { useCartStore } from '@/stores/useCartStore';
+
+const cart = useCartStore();
+
 import { ref } from 'vue';
 import { Bars3Icon, XMarkIcon, ArrowLeftIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline';
 
 const items = ref([
   { name: 'Queridinho', url: '#' },
-  { name: 'Produtos', url: '/velas' },
+  { name: 'Velas', url: '/velas' },
   { name: 'Sazonal', url: '#', sub: true },
   { name: 'Sobre', url: '#' },
 ]);
@@ -153,18 +194,45 @@ const subItems = ref([
   },
 ]);
 
+// Desktop
 const showSecondHeader = ref(false);
+const showStoreMenu = ref(false);
 
+// Mobile
 const isMobileMenuOpen = ref(false);
-
 const isSubMenuOpen = ref(false);
 
 const toggleSecondHeader = () => {
   showSecondHeader.value = !showSecondHeader.value;
+  if (showStoreMenu.value) {
+    showStoreMenu.value = !showStoreMenu.value;
+  }
+};
+
+const toggleStoreMenu = () => {
+  showStoreMenu.value = !showStoreMenu.value;
+  if (showSecondHeader.value) {
+    showSecondHeader.value = !showSecondHeader.value;
+  }
+
+  if (isMobileMenuOpen.value) {
+    isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  }
+
+  if (isSubMenuOpen.value) {
+    isSubMenuOpen.value = !isSubMenuOpen.value;
+  }
+};
+
+const closeStoreMenu = () => {
+  showStoreMenu.value = false;
 };
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  if (showStoreMenu.value) {
+    showStoreMenu.value = !showStoreMenu.value;
+  }
 };
 
 const closeMobileMenu = () => {
