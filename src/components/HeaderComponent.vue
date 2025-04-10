@@ -119,7 +119,7 @@
         <ul class="space-y-4" v-if="cart.cartItems.length > 0">
           <li class="flex flex-col" v-for="cartItem in cart.cartItems" :key="cartItem.id">
             <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + cartItem.name">
-              <router-link class="relative w-28 h-28 flex-shrink-0 overflow-hidden" :to="'/vela/' + cartItem.id">
+              <router-link class="relative w-22 h-22 flex-shrink-0 overflow-hidden" :to="'/vela/' + cartItem.id">
                 <img class="w-full h-full object-cover" :src="cartItem.img" :alt="cartItem.name" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div

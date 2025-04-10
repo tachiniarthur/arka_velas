@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 export const useCartStore = defineStore('cart', () => {
   const savedItems = JSON.parse(Cookies.get('cartItems') || '[]');
   const savedCount = parseInt(Cookies.get('countItens') || '0');
-  const totalPrice = ref(0);
+  const totalPrice = ref('R$ 0,00');
 
   const cartItems = ref(savedItems);
   const countItens = ref(savedCount);
@@ -21,10 +21,13 @@ export const useCartStore = defineStore('cart', () => {
 
     countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
 
-    // Corrigindo o cálculo do totalPrice
-    totalPrice.value = cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
-
-    console.log('Total Price:', totalPrice.value);
+    totalPrice.value = `R$ ${cartItems.value
+      .reduce(
+        (total, item) => total + parseFloat(item.price.replace('R$', '').replace(',', '.').trim()) * item.quantity,
+        0
+      )
+      .toFixed(2)
+      .replace('.', ',')}`;
   }
 
   function removeItem(vela) {
@@ -33,6 +36,13 @@ export const useCartStore = defineStore('cart', () => {
     if (index !== -1) {
       cartItems.value.splice(index, 1);
       countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
+      totalPrice.value = `R$ ${cartItems.value
+        .reduce(
+          (total, item) => total + parseFloat(item.price.replace('R$', '').replace(',', '.').trim()) * item.quantity,
+          0
+        )
+        .toFixed(2)
+        .replace('.', ',')}`;
     }
   }
 
@@ -45,5 +55,5 @@ export const useCartStore = defineStore('cart', () => {
     { deep: true }
   );
 
-  return { cartItems, countItens, addToCart, removeItem };
+  return { cartItems, countItens, totalPrice, addToCart, removeItem };
 });
