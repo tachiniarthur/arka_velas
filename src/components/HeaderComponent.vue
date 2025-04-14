@@ -151,15 +151,16 @@
       </div>
       <div class="px-4 py-3">
         <div class="flex justify-between items-center mb-4">
-          <span class="text-lg font-medium text-gray-800">Total:</span>
+          <span class="text-lg font-medium text-gray-800">Subtotal:</span>
           <span class="text-lg font-medium text-gray-800">{{ cart.totalPrice }}</span>
         </div>
-        <button
-          type="button"
-          class="w-full bg-[#3A4766] text-white py-2 rounded-md hover:bg-[#2b3a5d] transition duration-300"
+        <router-link
+          @click="closeStoreMenu"
+          to="/finalizar-compra"
+          class="block w-full bg-[#3A4766] text-white py-2 rounded-md text-center hover:bg-[#2b3a5d] transition duration-300"
         >
           Finalizar compra
-        </button>
+        </router-link>
       </div>
     </div>
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-28 h-10">
+  <div class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-40 h-10">
     <button
       type="button"
-      class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg"
+      class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
       @click="decrease"
     >
       -
@@ -10,14 +10,14 @@
 
     <input
       type="text"
-      class="w-1/3 h-full text-center text-[#3A4766] text-sm border-x border-gray-300 focus:outline-none"
+      class="w-1/3 h-full text-center text-[#3A4766] text-sm focus:outline-none"
       :value="quantity"
       @input="onInput"
     />
 
     <button
       type="button"
-      class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg"
+      class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
       @click="increase"
     >
       +

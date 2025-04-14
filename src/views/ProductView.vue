@@ -50,21 +50,27 @@ function comprar() {
 </script>
 
 <template>
-  <section class="flex gap-x-6">
+  <section class="flex">
     <img :src="vela.img" class="w-1/2 h-auto" alt="Imagem do produto" />
-    <div class="w-1/2 flex flex-col gap-y-4">
-      <h2 class="text-3xl">{{ vela.name }}</h2>
+    <div class="w-1/2 flex flex-col gap-y-4 px-6">
+      <h2 class="text-3xl uppercase">{{ vela.name }}</h2>
+
+      <span class="text-2xl uppercase">{{ vela.price }}</span>
+
+      <span class="text-md text-gray-500">{{ vela.price }}</span>
+      <div class="flex items-center w-full space-x-4">
+        <QuantitySelector v-model="selectedQty" :min="1" :max="10" />
+        <button
+          @click="comprar"
+          class="bg-[#3A4766] w-full text-center text-white py-2 px-4 rounded-md hover:bg-[#414f70] transition duration-200 ease-in-out"
+        >
+          Comprar
+        </button>
+      </div>
+
       <span class="text-md text-gray-500 font-light">
         {{ vela.description }}
       </span>
-      <span class="text-md text-gray-500">{{ vela.price }}</span>
-      <QuantitySelector v-model="selectedQty" :min="1" :max="10" />
-      <button
-        @click="comprar"
-        class="bg-[#3A4766] w-28 text-center text-white py-2 px-4 rounded-md hover:bg-[#414f70] transition duration-200 ease-in-out"
-      >
-        Comprar
-      </button>
     </div>
   </section>
 </template>
