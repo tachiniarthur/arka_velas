@@ -8,12 +8,9 @@
       -
     </button>
 
-    <input
-      type="text"
-      class="w-1/3 h-full text-center text-[#3A4766] text-sm focus:outline-none"
-      :value="quantity"
-      @input="onInput"
-    />
+    <span class="w-1/3 h-full flex items-center justify-center text-[#3A4766] text-sm">
+      {{ quantity }}
+    </span>
 
     <button
       type="button"
@@ -63,14 +60,6 @@ const increase = () => {
 const decrease = () => {
   if (quantity.value > props.min) {
     quantity.value--;
-    emit('update:modelValue', quantity.value);
-  }
-};
-
-const onInput = (e) => {
-  const val = parseInt(e.target.value, 10);
-  if (!isNaN(val) && val >= props.min && val <= props.max) {
-    quantity.value = val;
     emit('update:modelValue', quantity.value);
   }
 };

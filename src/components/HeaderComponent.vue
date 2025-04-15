@@ -120,7 +120,7 @@
           <li class="flex flex-col" v-for="cartItem in cart.cartItems" :key="cartItem.id">
             <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + cartItem.name">
               <router-link class="relative w-22 h-22 flex-shrink-0 overflow-hidden" :to="'/vela/' + cartItem.id">
-                <img class="w-full h-full object-cover" :src="cartItem.img" :alt="cartItem.name" loading="lazy" />
+                <img class="w-full h-full object-cover" :src="cartItem.img" :alt="cartItem.name" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div
                   class="absolute bottom-0 w-full flex justify-center items-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto"

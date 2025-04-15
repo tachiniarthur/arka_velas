@@ -2,9 +2,12 @@
 import { useCartStore } from '@/stores/useCartStore';
 
 const cart = useCartStore();
-
 function finalizePurchase() {
-  alert('Pedido finalizado com sucesso!');
+  const message = cart.cartItems.map((item) => `🕯️ ${item.name} - Quantidade: ${item.quantity}`).join('%0A');
+
+  const whatsappLink = `https://api.whatsapp.com/send?phone=5547984140502&text=Olá!%20😊%0AAcabei%20de%20finalizar%20meu%20pedido%20no%20site%20e%20estou%20interessado%20nos%20seguintes%20produtos:%0A%0A${message}%0A%0APoderia%20me%20confirmar%20a%20disponibilidade%20e%20os%20próximos%20passos%20para%20o%20pagamento%20e%20envio?%0AObrigado(a)!%20🌿✨`;
+
+  window.open(whatsappLink, '_blank');
 }
 </script>
 
@@ -16,31 +19,41 @@ function finalizePurchase() {
         <table class="w-full">
           <tbody>
             <tr v-for="item in cart.cartItems" :key="item.id" class="border-b">
-              <td class="p-4 flex items-center gap-4">
-                <img :src="item.img" alt="Produto" class="w-16 h-16 object-cover" />
+              <td class="py-4 pr-4 flex items-center gap-4">
+                <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + item.name">
+                  <router-link class="relative w-18 h-18 flex-shrink-0 overflow-hidden" :to="'/vela/' + item.id">
+                    <img class="w-full h-full object-cover" :src="item.img" :alt="item.name" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                    <div
+                      class="absolute bottom-0 w-full flex justify-center items-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto"
+                    >
+                      <span class="text-sm py-1 text-white">Visualizar</span>
+                    </div>
+                  </router-link>
+                </div>
                 <div>
                   <p class="font-medium text-gray-800">{{ item.name }}</p>
                   <p class="text-sm text-gray-500">{{ item.description }}</p>
                 </div>
               </td>
               <td class="text-center p-4">{{ item.price }}</td>
-              <td class="text-center p-4">
-                <div class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-28 h-10">
+              <td class="text-center p-4 w-38">
+                <div
+                  class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-full h-10"
+                >
                   <button
                     type="button"
-                    class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg"
+                    class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
                     @click="cart.decreaseQuantity(item.id)"
                   >
                     -
                   </button>
-                  <span
-                    class="w-1/3 h-full flex items-center justify-center text-[#3A4766] text-sm border-x border-gray-300 focus:outline-none"
-                  >
+                  <span class="w-1/3 h-full flex items-center justify-center text-[#3A4766] text-sm focus:outline-none">
                     {{ item.quantity }}
                   </span>
                   <button
                     type="button"
-                    class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg"
+                    class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
                     @click="cart.increaseQuantity(item.id)"
                   >
                     +
@@ -55,8 +68,10 @@ function finalizePurchase() {
                     .replace('.', ',')
                 }}
               </td>
-              <td class="text-center p-4">
-                <button @click="cart.removeItem(item)" class="text-red-600 hover:underline">Remover</button>
+              <td class="text-center py-4 pl-4">
+                <button @click="cart.removeItem(item)" class="text-red-600 hover:underline cursor-pointer">
+                  Remover
+                </button>
               </td>
             </tr>
           </tbody>
@@ -70,7 +85,7 @@ function finalizePurchase() {
         <h2 class="text-lg font-bold text-gray-800 mb-4">Resumo do pedido</h2>
         <hr class="my-4" />
         <div class="flex justify-between items-center mb-4">
-          <span class="text-lg font-bold text-gray-800">Total:</span>
+          <span class="text-lg font-bold text-gray-800">Subtotal:</span>
           <span class="text-lg font-bold text-gray-800">{{ cart.totalPrice }}</span>
         </div>
         <button
