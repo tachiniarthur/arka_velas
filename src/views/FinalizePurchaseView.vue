@@ -12,7 +12,7 @@ function finalizePurchase() {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 md:px-6">
+  <div class="container mx-auto px-4 md:px-6 pb-24">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Checkout</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-3">

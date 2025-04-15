@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full">
+  <section class="w-full pb-24">
     <div class="flex flex-col px-10">
       <div class="flex justify-between items-center">
         <h2 class="text-3xl mb-6 text-gray-800 uppercase">Velas</h2>

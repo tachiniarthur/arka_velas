@@ -200,7 +200,7 @@ import { ref } from 'vue';
 import { Bars3Icon, XMarkIcon, ArrowLeftIcon, ShoppingBagIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const items = ref([
-  { name: 'Queridinho', url: '#' },
+  { name: 'Queridinho', url: '/vela/frutas_vermelhas' },
   { name: 'Velas', url: '/velas' },
   { name: 'Sazonal', url: '#', sub: true },
   { name: 'Sobre', url: '#' },

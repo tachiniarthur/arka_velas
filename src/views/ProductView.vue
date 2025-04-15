@@ -128,8 +128,8 @@ function toggleAccordion5() {
 </script>
 
 <template>
-  <section class="flex flex-col md:flex-row w-full">
-    <img :src="vela.img" class="w-full md:w-1/2 h-auto" alt="Imagem do produto" />
+  <section class="flex flex-col md:flex-row w-full pb-24">
+    <img :src="vela.img" class="w-full md:w-1/2 h-100 object-cover" alt="Imagem do produto" />
     <div class="w-full md:w-1/2 flex flex-col gap-y-4 py-4 md:py-0 px-4 md:px-6">
       <h2 class="text-2xl md:text-3xl uppercase">{{ vela.name }}</h2>
       <span class="text-xl md:text-2xl uppercase">{{ vela.price }}</span>
