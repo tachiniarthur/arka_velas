@@ -1,6 +1,6 @@
 <template>
   <footer class="w-full bg-[#3A4766] text-[#EAE8DA] py-10 mt-auto">
-    <div class="container mx-auto grid grid-cols-4 gap-8 px-4">
+    <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-4">
       <div>
         <h3 class="text-sm font-bold uppercase mb-4">Atendimento</h3>
         <ul class="text-sm space-y-2">
