@@ -12,11 +12,12 @@ function finalizePurchase() {
 </script>
 
 <template>
-  <div class="container mx-auto px-6">
+  <div class="container mx-auto px-4 md:px-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Checkout</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <div class="grid grid-cols-1 md:grid-cols-3">
       <div class="md:col-span-2">
-        <table class="w-full">
+        <table class="w-full hidden md:table">
           <tbody>
             <tr v-for="item in cart.cartItems" :key="item.id" class="border-b">
               <td class="py-4 pr-4 flex items-center gap-4">
@@ -36,10 +37,10 @@ function finalizePurchase() {
                   <p class="text-sm text-gray-500">{{ item.description }}</p>
                 </div>
               </td>
-              <td class="text-center p-4">{{ item.price }}</td>
+              <td class="text-center p-4 hidden lg:table-cell">{{ item.price }}</td>
               <td class="text-center p-4 w-38">
                 <div
-                  class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-full h-10"
+                  class="flex items-center text-center rounded-md overflow-hidden border border-gray-400 w-full h-10"
                 >
                   <button
                     type="button"
@@ -76,6 +77,46 @@ function finalizePurchase() {
             </tr>
           </tbody>
         </table>
+
+        <div class="flex flex-col gap-y-4 md:hidden">
+          <div v-for="item in cart.cartItems" :key="item.id" class="flex flex-col border-b pb-2">
+            <div class="flex items-center gap-4">
+              <router-link class="relative w-20 h-20 flex-shrink-0 overflow-hidden" :to="'/vela/' + item.id">
+                <img class="w-full h-full object-cover rounded-md" :src="item.img" :alt="item.name" />
+              </router-link>
+              <div class="flex-1">
+                <p class="font-medium text-gray-800">{{ item.name }}</p>
+                <p class="text-sm text-gray-500">{{ item.description }}</p>
+                <p class="text-sm font-bold text-gray-800 mt-2">R$ {{ item.price }}</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex items-center text-center rounded-md overflow-hidden border border-gray-300 w-32 h-10">
+                <button
+                  type="button"
+                  class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
+                  @click="cart.decreaseQuantity(item.id)"
+                >
+                  -
+                </button>
+                <span class="w-1/3 h-full flex items-center justify-center text-[#3A4766] text-sm focus:outline-none">
+                  {{ item.quantity }}
+                </span>
+                <button
+                  type="button"
+                  class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
+                  @click="cart.increaseQuantity(item.id)"
+                >
+                  +
+                </button>
+              </div>
+              <button @click="cart.removeItem(item)" class="text-red-600 hover:underline text-sm font-medium">
+                Remover
+              </button>
+            </div>
+          </div>
+        </div>
+
         <router-link to="/" class="block mt-4 text-center text-gray-600 hover:underline">
           Continuar comprando
         </router-link>
@@ -83,7 +124,7 @@ function finalizePurchase() {
 
       <div class="p-6">
         <h2 class="text-lg font-bold text-gray-800 mb-4">Resumo do pedido</h2>
-        <hr class="my-4" />
+        <hr class="my-4 text-[#3A4766]" />
         <div class="flex justify-between items-center mb-4">
           <span class="text-lg font-bold text-gray-800">Subtotal:</span>
           <span class="text-lg font-bold text-gray-800">{{ cart.totalPrice }}</span>

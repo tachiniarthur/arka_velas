@@ -30,7 +30,7 @@ const velas = ref([
           v-for="vela in velas"
           :key="vela.id"
           :to="`/vela/${vela.id}`"
-          class="h-48 w-full hover:scale-105 duration-300 relative"
+          class="h-48 w-full hover:scale-[1.02] duration-300 relative"
         >
           <img class="w-full h-full object-cover" :src="vela.img" :alt="vela.alt" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -42,7 +42,7 @@ const velas = ref([
         <router-link
           v-if="velas[0]"
           :to="`/vela/${velas[0].id}`"
-          class="w-2/3 h-full hover:scale-105 duration-300 relative overflow-hidden"
+          class="w-2/3 h-full hover:scale-[1.02] duration-300 relative overflow-hidden"
         >
           <img class="w-full h-full object-cover" :src="velas[0].img" :alt="velas[0].alt" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -54,7 +54,7 @@ const velas = ref([
             v-for="vela in velas.slice(1, 3)"
             :key="vela.id"
             :to="`/vela/${vela.id}`"
-            class="h-1/2 relative hover:scale-105 duration-300 overflow-hidden"
+            class="h-1/2 relative hover:scale-[1.02] duration-300 overflow-hidden"
           >
             <img class="w-full h-full object-cover" :src="vela.img" :alt="vela.alt" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>

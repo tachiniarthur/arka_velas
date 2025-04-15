@@ -15,6 +15,23 @@ const velas = ref([
     description: 'Uma vela aromática maravilhosa',
     img: '/img1.png',
     price: 'R$ 48,90',
+    notasAromaticas: ['Notas de frutas vermelhas frescas', 'Toques de baunilha', 'Aroma doce e acolhedor'],
+    caracteristicas: [
+      'Feita com cera de soja 100% natural',
+      'Pavio de algodão ecológico',
+      'Livre de toxinas e parabenos',
+    ],
+    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+    beneficiosAromaticos: [
+      'Relaxamento e alívio do estresse com notas de lavanda.',
+      'Energia e foco com notas cítricas.',
+      'Ambiente acolhedor com notas amadeiradas.',
+    ],
   },
   {
     id: 'cherry_blossom',
@@ -22,6 +39,23 @@ const velas = ref([
     description: 'Uma vela aromática maravilhosa',
     img: '/img2.png',
     price: 'R$ 48,90',
+    notasAromaticas: ['Flores de cerejeira delicadas', 'Toques de jasmim', 'Aroma floral e suave'],
+    caracteristicas: [
+      'Feita com cera de soja 100% natural',
+      'Pavio de algodão ecológico',
+      'Livre de toxinas e parabenos',
+    ],
+    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+    beneficiosAromaticos: [
+      'Relaxamento e alívio do estresse com notas florais.',
+      'Sensação de frescor e tranquilidade.',
+      'Ambiente delicado e acolhedor.',
+    ],
   },
   {
     id: 'flor_de_figo',
@@ -29,6 +63,23 @@ const velas = ref([
     description: 'Uma vela aromática maravilhosa',
     img: '/img3.png',
     price: 'R$ 48,90',
+    notasAromaticas: ['Notas de figo fresco', 'Toques de madeira e musgo', 'Aroma sofisticado e terroso'],
+    caracteristicas: [
+      'Feita com cera de soja 100% natural',
+      'Pavio de algodão ecológico',
+      'Livre de toxinas e parabenos',
+    ],
+    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+    beneficiosAromaticos: [
+      'Sensação de conexão com a natureza.',
+      'Aroma calmante e sofisticado.',
+      'Ambiente elegante e relaxante.',
+    ],
   },
 ]);
 
@@ -51,6 +102,9 @@ function comprar() {
 
 const isOpen = ref(false);
 const isOpen2 = ref(false);
+const isOpen3 = ref(false);
+const isOpen4 = ref(false);
+const isOpen5 = ref(false);
 
 function toggleAccordion() {
   isOpen.value = !isOpen.value;
@@ -58,6 +112,18 @@ function toggleAccordion() {
 
 function toggleAccordion2() {
   isOpen2.value = !isOpen2.value;
+}
+
+function toggleAccordion3() {
+  isOpen3.value = !isOpen3.value;
+}
+
+function toggleAccordion4() {
+  isOpen4.value = !isOpen4.value;
+}
+
+function toggleAccordion5() {
+  isOpen5.value = !isOpen5.value;
 }
 </script>
 
@@ -92,7 +158,9 @@ function toggleAccordion2() {
         </button>
 
         <div v-show="isOpen" class="py-3 bg-white px-6">
-          <span class="text-sm">Este é o conteúdo do acordeão. Você pode personalizá-lo com qualquer conteúdo. </span>
+          <ul class="list-disc list-inside text-sm">
+            <li v-for="nota in vela.notasAromaticas" :key="nota">{{ nota }}</li>
+          </ul>
         </div>
       </div>
 
@@ -108,7 +176,63 @@ function toggleAccordion2() {
         </button>
 
         <div v-show="isOpen2" class="py-3 bg-white px-6">
-          <span class="text-sm">Este é o conteúdo do acordeão. Você pode personalizá-lo com qualquer conteúdo. </span>
+          <ul class="list-disc list-inside text-sm">
+            <li v-for="caracteristica in vela.caracteristicas" :key="caracteristica">{{ caracteristica }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="text-gray-400" />
+
+      <div class="overflow-hidden">
+        <button @click="toggleAccordion3" class="w-full flex justify-between items-center font-medium px-2">
+          <span class="uppercase font-light">Composição</span>
+          <span class="w-4 h-4">
+            <ArrowDownIcon v-if="!isOpen3" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-if="isOpen3" class="w-4 h-4 text-[#3A4766]" />
+          </span>
+        </button>
+
+        <div v-show="isOpen3" class="py-3 bg-white px-6">
+          <ul class="list-disc list-inside text-sm">
+            <li v-for="componente in vela.composicao" :key="componente">{{ componente }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="text-gray-400" />
+
+      <div class="overflow-hidden">
+        <button @click="toggleAccordion4" class="w-full flex justify-between items-center font-medium px-2">
+          <span class="uppercase font-light">Cuidados e instruções</span>
+          <span class="w-4 h-4">
+            <ArrowDownIcon v-if="!isOpen4" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-if="isOpen4" class="w-4 h-4 text-[#3A4766]" />
+          </span>
+        </button>
+
+        <div v-show="isOpen4" class="py-3 bg-white px-6">
+          <ul class="list-disc list-inside text-sm">
+            <li v-for="cuidado in vela.cuidados" :key="cuidado">{{ cuidado }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="text-gray-400" />
+
+      <div class="overflow-hidden">
+        <button @click="toggleAccordion5" class="w-full flex justify-between items-center font-medium px-2">
+          <span class="uppercase font-light">Benefícios aromáticos</span>
+          <span class="w-4 h-4">
+            <ArrowDownIcon v-if="!isOpen5" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-if="isOpen5" class="w-4 h-4 text-[#3A4766]" />
+          </span>
+        </button>
+
+        <div v-show="isOpen5" class="py-3 bg-white px-6">
+          <ul class="list-disc list-inside text-sm">
+            <li v-for="beneficio in vela.beneficiosAromaticos" :key="beneficio">{{ beneficio }}</li>
+          </ul>
         </div>
       </div>
     </div>

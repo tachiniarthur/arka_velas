@@ -1,5 +1,6 @@
 <script setup>
 import HeaderComponent from '@/components/HeaderComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
 import CookieConsent from './components/CookieConsent.vue';
 </script>
 
@@ -10,6 +11,8 @@ import CookieConsent from './components/CookieConsent.vue';
     <router-view />
     <CookieConsent />
   </main>
+
+  <FooterComponent />
 </template>
 
 <style scoped></style>

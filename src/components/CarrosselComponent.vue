@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full h-[30rem] overflow-hidden">
+  <section class="relative w-full h-[30rem] 2xl:h-[40rem] 3xl:h-[55rem] overflow-hidden">
     <swiper
       :modules="modules"
       :autoplay="{ delay: 3000, disableOnInteraction: false }"

@@ -137,10 +137,10 @@
               </div>
               <button
                 type="button"
-                class="absolute bottom-0 right-0 h-5 w-5 opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto cursor-pointer"
+                class="absolute bottom-0 right-0 h-5 w-5 text-red-700 cursor-pointer md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto transition-all duration-300 ease-in-out"
                 @click="() => cart.removeItem(cartItem)"
               >
-                <TrashIcon class="text-red-700" />
+                <TrashIcon />
               </button>
             </div>
           </li>
@@ -225,11 +225,9 @@ const subItems = ref([
   },
 ]);
 
-// Desktop
 const showSecondHeader = ref(false);
 const showStoreMenu = ref(false);
 
-// Mobile
 const isMobileMenuOpen = ref(false);
 const isSubMenuOpen = ref(false);
 
