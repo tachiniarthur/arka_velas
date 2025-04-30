@@ -6,14 +6,24 @@
           <router-link to="/">
             <img :src="'/logo.png'" alt="Logo" class="h-8" />
           </router-link>
-          <li v-for="item in items" :key="item.name">
-            <router-link
-              :to="item.url"
-              @click="item.sub ? toggleSecondHeader() : null"
-              class="text-[#3A4766] border-b-2 border-transparent uppercase hover:border-[#3A4766] transition-all duration-300 ease-in-out pb-1.5"
-            >
-              {{ item.name }}
-            </router-link>
+          <li v-for="item in items" :key="item.name" class="flex items-center">
+            <template v-if="item.url">
+              <router-link
+                :to="item.url"
+                @click="item.sub ? toggleSecondHeader(item) : null"
+                class="text-[#3A4766] border-b-2 border-transparent uppercase hover:border-[#3A4766] transition-all duration-300 ease-in-out pb-1.5"
+              >
+                {{ item.name }}
+              </router-link>
+            </template>
+            <template v-else>
+              <button
+                @click="item.sub ? toggleSecondHeader(item) : null"
+                class="text-[#3A4766] cursor-pointer border-b-2 border-transparent uppercase hover:border-[#3A4766] transition-all duration-300 ease-in-out pb-1.5"
+              >
+                {{ item.name }}
+              </button>
+            </template>
           </li>
         </ul>
 
@@ -42,7 +52,34 @@
             </span>
             <div class="flex flex-col gap-2">
               <li v-for="item in subItem.items" :key="item.name">
-                <router-link :to="item.url" class="text-[#3A4766] font-light hover:font-medium transition duration-300">
+                <router-link
+                  :to="item.url"
+                  @click="closeSecondHeader"
+                  class="text-[#3A4766] font-light hover:font-medium transition duration-300"
+                >
+                  {{ item.name }}
+                </router-link>
+              </li>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+
+    <nav v-if="showSecondHeaderProdutos" class="pt-10 bg-gray-50 fixed w-full top-16 z-40 hidden md:block">
+      <div class="container mx-auto px-6 pt-4 pb-6">
+        <nav class="grid grid-cols-2">
+          <ul class="flex flex-col gap-3" v-for="subItem in subItemsProdutos" :key="subItem.name">
+            <span class="text-[#3A4766] font-medium border-b pb-0.5 w-72">
+              {{ subItem.name }}
+            </span>
+            <div class="flex flex-col gap-2">
+              <li v-for="item in subItem.items" :key="item.name">
+                <router-link
+                  :to="item.url"
+                  @click="closeSecondHeader"
+                  class="text-[#3A4766] font-light hover:font-medium transition duration-300"
+                >
                   {{ item.name }}
                 </router-link>
               </li>
@@ -119,8 +156,8 @@
         <ul class="space-y-4" v-if="cart.cartItems.length > 0">
           <li class="flex flex-col" v-for="cartItem in cart.cartItems" :key="cartItem.id">
             <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + cartItem.name">
-              <router-link class="relative w-22 h-22 flex-shrink-0 overflow-hidden" :to="'/vela/' + cartItem.id">
-                <img class="w-full h-full object-cover" :src="cartItem.img" :alt="cartItem.name" />
+              <router-link class="relative w-22 h-22 flex-shrink-0 overflow-hidden" :to="cartItem.url">
+                <img class="w-full h-full object-cover" :src="cartItem.img[0]" :alt="cartItem.name" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div
                   class="absolute bottom-0 w-full flex justify-center items-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto"
@@ -180,7 +217,40 @@
           </span>
           <div class="flex flex-col gap-2">
             <li v-for="item in subItem.items" :key="item.name">
-              <router-link :to="item.url" class="text-[#3A4766] font-light hover:font-medium transition duration-300">
+              <router-link
+                :to="item.url"
+                @click="closeMobileMenu"
+                class="text-[#3A4766] font-light hover:font-medium transition duration-300"
+              >
+                {{ item.name }}
+              </router-link>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </nav>
+
+    <nav
+      v-if="isSubMenuOpenProdutos"
+      class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out max-h-screen overflow-y-auto h-full"
+    >
+      <div class="p-4">
+        <button @click="closeSubMenu" class="focus:outline-none">
+          <ArrowLeftIcon class="h-6 w-6 text-[#3A4766]" />
+        </button>
+      </div>
+      <div class="p-4 space-y-4">
+        <ul class="flex flex-col gap-3" v-for="subItem in subItemsProdutos" :key="subItem.name">
+          <span class="text-[#3A4766] font-medium border-b pb-0.5 w-72">
+            {{ subItem.name }}
+          </span>
+          <div class="flex flex-col gap-2">
+            <li v-for="item in subItem.items" :key="item.name">
+              <router-link
+                :to="item.url"
+                @click="closeMobileMenu"
+                class="text-[#3A4766] font-light hover:font-medium transition duration-300"
+              >
                 {{ item.name }}
               </router-link>
             </li>
@@ -200,42 +270,66 @@ import { ref } from 'vue';
 import { Bars3Icon, XMarkIcon, ArrowLeftIcon, ShoppingBagIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const items = ref([
-  { name: 'Queridinho', url: '/vela/frutas_vermelhas' },
-  { name: 'Velas', url: '/velas' },
-  { name: 'Sazonal', url: '#', sub: true },
-  { name: 'Sobre', url: '#' },
+  { name: 'Queridinho', url: '/velas/aromaticas/vela/frutas_vermelhas' },
+  { name: 'Produtos', sub: true },
+  { name: 'Sazonal', sub: true },
+  { name: 'Sobre', url: '/sobre' },
 ]);
 
 const subItems = ref([
   {
-    name: 'Épocas do ano',
-    items: [
-      { name: 'Vela 1', url: '#' },
-      { name: 'Vela 2', url: '#' },
-      { name: 'Vela 3', url: '#' },
-    ],
+    name: 'Velas Festivas',
+    items: [{ name: 'Páscoa', url: '/festivas/pascoa' }],
   },
   {
     name: 'Estações',
     items: [
-      { name: 'Vela 1', url: '#' },
-      { name: 'Vela 2', url: '#' },
-      { name: 'Vela 3', url: '#' },
+      { name: 'Primavera', url: '/estacoes/primavera' },
+      { name: 'Verão', url: '/estacoes/verao' },
+      { name: 'Outono', url: '/estacoes/outono' },
+      { name: 'Inverno', url: '/estacoes/inverno' },
     ],
   },
 ]);
 
+const subItemsProdutos = ref([
+  {
+    name: 'Velas',
+    items: [
+      { name: 'Velas Aromáticas', url: '/velas/aromaticas' },
+      { name: 'Velas Decorativas', url: '/velas/decorativas' },
+    ],
+  },
+  {
+    name: 'Decorativos',
+    items: [{ name: 'Porta-velas', url: '/decorativos/porta-velas' }],
+  },
+]);
+
 const showSecondHeader = ref(false);
+const showSecondHeaderProdutos = ref(false);
 const showStoreMenu = ref(false);
 
 const isMobileMenuOpen = ref(false);
 const isSubMenuOpen = ref(false);
+const isSubMenuOpenProdutos = ref(false);
 
-const toggleSecondHeader = () => {
-  showSecondHeader.value = !showSecondHeader.value;
+const toggleSecondHeader = (item) => {
+  if (item.name == 'Sazonal') {
+    showSecondHeader.value = !showSecondHeader.value;
+    showSecondHeaderProdutos.value = false;
+  } else {
+    showSecondHeaderProdutos.value = !showSecondHeaderProdutos.value;
+    showSecondHeader.value = false;
+  }
   if (showStoreMenu.value) {
     showStoreMenu.value = !showStoreMenu.value;
   }
+};
+
+const closeSecondHeader = () => {
+  showSecondHeader.value = false;
+  showSecondHeaderProdutos.value = false;
 };
 
 const toggleStoreMenu = () => {
@@ -244,12 +338,20 @@ const toggleStoreMenu = () => {
     showSecondHeader.value = !showSecondHeader.value;
   }
 
+  if (showSecondHeaderProdutos.value) {
+    showSecondHeaderProdutos.value = !showSecondHeaderProdutos.value;
+  }
+
   if (isMobileMenuOpen.value) {
     isMobileMenuOpen.value = !isMobileMenuOpen.value;
   }
 
   if (isSubMenuOpen.value) {
     isSubMenuOpen.value = !isSubMenuOpen.value;
+  }
+
+  if (isSubMenuOpenProdutos.value) {
+    isSubMenuOpenProdutos.value = !isSubMenuOpenProdutos.value;
   }
 };
 
@@ -266,15 +368,22 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false;
+  isSubMenuOpen.value = false;
+  isSubMenuOpenProdutos.value = false;
 };
 
 const openSubMenu = (item) => {
   if (item.sub) {
-    isSubMenuOpen.value = true;
+    if (item.name == 'Sazonal') {
+      isSubMenuOpen.value = true;
+    } else {
+      isSubMenuOpenProdutos.value = true;
+    }
   }
 };
 
 const closeSubMenu = () => {
   isSubMenuOpen.value = false;
+  isSubMenuOpenProdutos.value = false;
 };
 </script>

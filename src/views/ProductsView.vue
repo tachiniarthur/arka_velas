@@ -2,7 +2,9 @@
   <section class="w-full pb-24">
     <div class="flex flex-col px-10">
       <div class="flex justify-between items-center">
-        <h2 class="text-3xl mb-6 text-gray-800 uppercase">Velas</h2>
+        <h2 class="text-3xl mb-6 text-gray-800 uppercase">
+          {{ titulo }}
+        </h2>
         <div class="hidden md:flex items-center gap-x-2">
           <span class="text-gray-400 text-sm">Vista:</span>
           <button
@@ -24,9 +26,9 @@
           vista === 1 ? 'md:grid-cols-1' : vista === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3',
         ]"
       >
-        <div v-for="vela in velas" :key="vela.id" class="flex flex-col items-center">
-          <router-link class="relative group w-full" :to="`/vela/${vela.id}`">
-            <img class="w-full h-full object-cover" :src="vela.img" :alt="vela.name" />
+        <div v-for="produto in produtos" :key="produto.id" class="flex flex-col items-center">
+          <router-link class="relative group w-full" :to="`${produto.url}`">
+            <img class="w-full h-100 object-cover" :src="produto.img" :alt="produto.name" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             <div
               class="absolute bottom-0 w-full bg-black flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto"
@@ -35,10 +37,10 @@
             </div>
           </router-link>
           <h3 class="text-black text-2xl font-light uppercase mt-2">
-            {{ vela.name }}
+            {{ produto.name }}
           </h3>
           <span class="text-lg text-black font-light uppercase">
-            {{ vela.price }}
+            {{ produto.price }}
           </span>
         </div>
       </div>
@@ -47,7 +49,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const vista = ref(3);
 const isMobile = ref(false);
@@ -71,24 +76,180 @@ const toggleVista = (cols) => {
   vista.value = cols;
 };
 
-const velas = ref([
-  {
-    id: 'frutas_vermelhas',
-    name: 'Frutas vermelhas',
-    img: '/img1.png',
-    price: 'R$ 48,90',
-  },
-  {
-    id: 'cherry_blossom',
-    name: 'Cherry Blossom',
-    img: '/img2.png',
-    price: 'R$ 48,90',
-  },
-  {
-    id: 'flor_de_figo',
-    name: 'Flor de figo',
-    img: '/img3.png',
-    price: 'R$ 48,90',
-  },
-]);
+const allProducts = {
+  velas: [
+    {
+      id: 'frutas_vermelhas',
+      name: 'Frutas vermelhas',
+      img: '/vela-frutas-vermelhas.png',
+      price: 'R$ 48,90',
+      url: '/velas/aromaticas/vela/frutas_vermelhas',
+    },
+    {
+      id: 'cherry_blossom',
+      name: 'Cherry Blossom',
+      img: '/vela-cherry.png',
+      price: 'R$ 48,90',
+      url: '/velas/aromaticas/vela/cherry_blossom',
+    },
+    {
+      id: 'flor_de_figo',
+      name: 'Flor de figo',
+      img: '/vela-figo.png',
+      price: 'R$ 48,90',
+      url: '/velas/aromaticas/vela/flor_de_figo',
+    },
+    {
+      id: 'lavanda',
+      name: 'Lavanda',
+      img: '/vela-lavanda.png',
+      price: 'R$ 48,90',
+      url: '/velas/aromaticas/vela/lavanda',
+    },
+    {
+      id: 'baunilha',
+      name: 'Baunilha',
+      img: '/vela-baunilha.png',
+      price: 'R$ 48,90',
+      url: '/velas/aromaticas/vela/baunilha',
+    },
+  ],
+  portaVelas: [
+    {
+      id: 'porta-vela-pequeno',
+      name: 'Porta-Velas Pequeno',
+      img: '/porta-vela-pequeno.png',
+      price: 'R$ 05,00',
+      url: '/decorativos/porta-velas/decorativo/porta-vela-pequeno',
+    },
+    {
+      id: 'porta-vela-grande',
+      name: 'Porta-Velas Grande',
+      img: '/porta-vela-grande.png',
+      price: 'R$ 09,90',
+      url: '/decorativos/porta-velas/decorativo/porta-vela-grande',
+    },
+  ],
+  decorativas: [
+    {
+      id: 'vela-soft-bubble',
+      name: 'Vela Soft-Bubble',
+      img: '/bubble-pequena-branca.png',
+      price: 'R$ 10,00',
+      url: '/velas/decorativas/vela/soft-bubble',
+    },
+    {
+      id: 'vela-bubble',
+      name: 'Vela Bubble',
+      img: '/bubble-branca.png',
+      price: 'R$ 18,00',
+      url: '/velas/decorativas/vela/bubble',
+    },
+  ],
+  primavera: [
+    {
+      id: 'cherry_blossom',
+      name: 'Cherry Blossom',
+      img: '/vela-cherry.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/cherry_blossom',
+    },
+    {
+      id: 'flor_de_figo',
+      name: 'Flor de figo',
+      img: '/vela-figo.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/flor_de_figo',
+    },
+  ],
+  verao: [
+    {
+      id: 'frutas_vermelhas',
+      name: 'Frutas vermelhas',
+      img: '/vela-frutas-vermelhas.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/frutas_vermelhas',
+    },
+    {
+      id: 'flor_de_figo',
+      name: 'Flor de figo',
+      img: '/vela-figo.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/flor_de_figo',
+    },
+  ],
+  outono: [
+    {
+      id: 'cherry_blossom',
+      name: 'Cherry Blossom',
+      img: '/vela-cherry.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/cherry_blossom',
+    },
+    {
+      id: 'lavanda',
+      name: 'Lavanda',
+      img: '/vela-lavanda.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/lavanda',
+    },
+  ],
+  inverno: [
+    {
+      id: 'lavanda',
+      name: 'Lavanda',
+      img: '/vela-lavanda.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/lavanda',
+    },
+    {
+      id: 'baunilha',
+      name: 'Baunilha',
+      img: '/vela-baunilha.png',
+      price: 'R$ 48,90',
+      url: '/estacoes/primavera/estacao/baunilha',
+    },
+  ],
+  festivas: [
+    {
+      id: 'vela-coelinho',
+      name: 'Vela Coelinho',
+      img: '/vela-coelho.png',
+      price: 'R$ 12,00',
+      url: '/festivas/pascoa/festiva/coelinho',
+    },
+  ],
+};
+
+const produtosMap = {
+  'porta-velas': allProducts.portaVelas,
+  aromaticas: allProducts.velas,
+  decorativas: allProducts.decorativas,
+  primavera: allProducts.primavera,
+  verao: allProducts.verao,
+  outono: allProducts.outono,
+  inverno: allProducts.inverno,
+  festivas: allProducts.festivas,
+};
+
+const titulosMap = {
+  'porta-velas': 'Porta-Velas',
+  aromaticas: 'Velas Aromáticas',
+  decorativas: 'Velas Decorativas',
+  primavera: 'Velas de Primavera',
+  verao: 'Velas de Verão',
+  outono: 'Velas de Outono',
+  inverno: 'Velas de Inverno',
+  festivas: 'Velas Festivas',
+};
+
+const produtos = computed(() => {
+  const categoria = Object.keys(produtosMap).find((key) => route.path.includes(key));
+  return produtosMap[categoria] || allProducts.velas;
+});
+
+const titulo = computed(() => {
+  const categoria = Object.keys(titulosMap).find((key) => route.path.includes(key));
+  return titulosMap[categoria] || 'Velas';
+});
 </script>

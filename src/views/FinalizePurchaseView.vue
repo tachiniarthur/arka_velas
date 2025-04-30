@@ -22,8 +22,8 @@ function finalizePurchase() {
             <tr v-for="item in cart.cartItems" :key="item.id" class="border-b">
               <td class="py-4 pr-4 flex items-center gap-4">
                 <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + item.name">
-                  <router-link class="relative w-18 h-18 flex-shrink-0 overflow-hidden" :to="'/vela/' + item.id">
-                    <img class="w-full h-full object-cover" :src="item.img" :alt="item.name" />
+                  <router-link class="relative w-18 h-18 flex-shrink-0 overflow-hidden" :to="item.url">
+                    <img class="w-full h-full object-cover" :src="item.img[0]" :alt="item.name" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div
                       class="absolute bottom-0 w-full flex justify-center items-center opacity-0 pointer-events-none transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto"
@@ -81,7 +81,7 @@ function finalizePurchase() {
         <div class="flex flex-col gap-y-4 md:hidden">
           <div v-for="item in cart.cartItems" :key="item.id" class="flex flex-col border-b pb-2">
             <div class="flex items-center gap-4">
-              <router-link class="relative w-20 h-20 flex-shrink-0 overflow-hidden" :to="'/vela/' + item.id">
+              <router-link class="relative w-20 h-20 flex-shrink-0 overflow-hidden" :to="item.url">
                 <img class="w-full h-full object-cover rounded-md" :src="item.img" :alt="item.name" />
               </router-link>
               <div class="flex-1">

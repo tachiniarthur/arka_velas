@@ -5,17 +5,17 @@ const velas = ref([
   {
     id: 'frutas_vermelhas',
     name: 'Frutas vermelhas',
-    img: '/img1.png',
+    img: '/vela-frutas-vermelhas.png',
   },
   {
     id: 'cherry_blossom',
     name: 'Cherry Blossom',
-    img: '/img2.png',
+    img: '/vela-cherry.png',
   },
   {
     id: 'flor_de_figo',
     name: 'Flor de figo',
-    img: '/img3.png',
+    img: '/vela-figo.png',
   },
 ]);
 </script>
@@ -25,11 +25,11 @@ const velas = ref([
     <div class="flex justify-center items-center flex-col py-10">
       <h2 class="text-3xl mb-6 text-gray-800 uppercase">Produtos</h2>
 
-      <div class="flex flex-col w-full md:hidden">
+      <div class="flex flex-col w-full space-y-4 md:hidden">
         <router-link
           v-for="vela in velas"
           :key="vela.id"
-          :to="`/vela/${vela.id}`"
+          :to="`/velas/aromaticas/vela/${vela.id}`"
           class="h-48 w-full hover:scale-[1.02] duration-300 relative"
         >
           <img class="w-full h-full object-cover" :src="vela.img" :alt="vela.alt" />
@@ -41,7 +41,7 @@ const velas = ref([
       <div class="w-full hidden md:flex gap-4 px-4 h-[34rem]">
         <router-link
           v-if="velas[0]"
-          :to="`/vela/${velas[0].id}`"
+          :to="`/velas/aromaticas/vela/${velas[0].id}`"
           class="w-2/3 h-full hover:scale-[1.02] duration-300 relative overflow-hidden"
         >
           <img class="w-full h-full object-cover" :src="velas[0].img" :alt="velas[0].alt" />
@@ -53,7 +53,7 @@ const velas = ref([
           <router-link
             v-for="vela in velas.slice(1, 3)"
             :key="vela.id"
-            :to="`/vela/${vela.id}`"
+            :to="`/velas/aromaticas/vela/${vela.id}`"
             class="h-1/2 relative hover:scale-[1.02] duration-300 overflow-hidden"
           >
             <img class="w-full h-full object-cover" :src="vela.img" :alt="vela.alt" />

@@ -26,13 +26,13 @@ export const useCartStore = defineStore('cart', () => {
 
   calculateTotalPrice();
 
-  function addToCart(vela) {
-    const existing = cartItems.value.find((item) => item.id === vela.id);
+  function addToCart(produto) {
+    const existing = cartItems.value.find((item) => item.id === produto.id);
 
     if (existing) {
-      existing.quantity += vela.quantity;
+      existing.quantity += produto.quantity;
     } else {
-      cartItems.value.push({ ...vela });
+      cartItems.value.push({ ...produto });
     }
 
     countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
@@ -44,8 +44,8 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  function removeItem(vela) {
-    const index = cartItems.value.findIndex((item) => item.id === vela.id);
+  function removeItem(produto) {
+    const index = cartItems.value.findIndex((item) => item.id === produto.id);
 
     if (index !== -1) {
       cartItems.value.splice(index, 1);
