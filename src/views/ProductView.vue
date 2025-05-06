@@ -7,225 +7,13 @@ import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/vue/24/outline';
 
 const route = useRoute();
 const id = ref(route.params.id);
+const selectedVolume = ref('500ml');
+const withDoTERRA = ref(false);
 
-const produtos = ref([
-  {
-    id: 'frutas_vermelhas',
-    name: 'Frutas vermelhas',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-frutas-vermelhas.png', '/pote-vela-grande-mao.png'],
-    price: 'R$ 48,90',
-    url: '/velas/aromaticas/vela/frutas_vermelhas',
-    notasAromaticas: ['Notas de frutas vermelhas frescas', 'Toques de baunilha', 'Aroma doce e acolhedor'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Relaxamento e alívio do estresse com notas de lavanda.',
-      'Energia e foco com notas cítricas.',
-      'Ambiente acolhedor com notas amadeiradas.',
-    ],
-  },
-  {
-    id: 'cherry_blossom',
-    name: 'Cherry Blossom',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-cherry.png', '/pote-vela-grande-mao.png'],
-    price: 'R$ 48,90',
-    url: '/velas/aromaticas/vela/cherry_blossom',
-    notasAromaticas: ['Flores de cerejeira delicadas', 'Toques de jasmim', 'Aroma floral e suave'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Relaxamento e alívio do estresse com notas florais.',
-      'Sensação de frescor e tranquilidade.',
-      'Ambiente delicado e acolhedor.',
-    ],
-  },
-  {
-    id: 'flor_de_figo',
-    name: 'Flor de figo',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-figo.png', '/pote-vela-grande-mao.png'],
-    price: 'R$ 48,90',
-    url: '/velas/aromaticas/vela/flor_de_figo',
-    notasAromaticas: ['Notas de figo fresco', 'Toques de madeira e musgo', 'Aroma sofisticado e terroso'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Sensação de conexão com a natureza.',
-      'Aroma calmante e sofisticado.',
-      'Ambiente elegante e relaxante.',
-    ],
-  },
-  {
-    id: 'lavanda',
-    name: 'Lavanda',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-lavanda.png', '/pote-vela-grande-mao.png'],
-    price: 'R$ 48,90',
-    url: '/velas/aromaticas/vela/lavanda',
-    notasAromaticas: ['Notas de figo fresco', 'Toques de madeira e musgo', 'Aroma sofisticado e terroso'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Sensação de conexão com a natureza.',
-      'Aroma calmante e sofisticado.',
-      'Ambiente elegante e relaxante.',
-    ],
-  },
-  {
-    id: 'baunilha',
-    name: 'Baunilha',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-baunilha.png', '/pote-vela-grande-mao.png'],
-    price: 'R$ 48,90',
-    url: '/velas/aromaticas/vela/baunilha',
-    notasAromaticas: ['Notas de figo fresco', 'Toques de madeira e musgo', 'Aroma sofisticado e terroso'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Sensação de conexão com a natureza.',
-      'Aroma calmante e sofisticado.',
-      'Ambiente elegante e relaxante.',
-    ],
-  },
-  {
-    id: 'porta-vela-pequeno',
-    name: 'Porta-Vela Pequeno',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/porta-vela-pequeno.png', '/porta-vela-pequeno-mao.png'],
-    price: 'R$ 05,00',
-    url: '/decorativos/porta-velas/decorativo/porta-vela-pequeno',
-  },
-  {
-    id: 'porta-vela-grande',
-    name: 'Porta-Vela Grande',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/porta-vela-grande.png', '/porta-vela-grande-mao.png'],
-    price: 'R$ 09,90',
-    url: '/decorativos/porta-velas/decorativo/porta-vela-grande',
-  },
-  {
-    id: 'soft-bubble',
-    name: 'Soft Bubble',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/bubble-pequena-branca.png', '/bubble-pequena-mao.png'],
-    price: 'R$ 10,00',
-    url: '/velas/decorativas/vela/soft-bubble',
-    notasAromaticas: ['Notas de frutas vermelhas frescas', 'Toques de baunilha', 'Aroma doce e acolhedor'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Relaxamento e alívio do estresse com notas de lavanda.',
-      'Energia e foco com notas cítricas.',
-      'Ambiente acolhedor com notas amadeiradas.',
-    ],
-  },
-  {
-    id: 'bubble',
-    name: 'Bubble',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/bubble-branca.png', '/bubble-mao.png'],
-    price: 'R$ 18,00',
-    url: '/velas/decorativas/vela/bubble',
-    notasAromaticas: ['Notas de frutas vermelhas frescas', 'Toques de baunilha', 'Aroma doce e acolhedor'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Relaxamento e alívio do estresse com notas de lavanda.',
-      'Energia e foco com notas cítricas.',
-      'Ambiente acolhedor com notas amadeiradas.',
-    ],
-  },
-  {
-    id: 'coelinho',
-    name: 'Coelinho',
-    description: 'Uma vela aromática maravilhosa',
-    img: ['/vela-coelho.png', '/vela-coelho2.png'],
-    price: 'R$ 12,00',
-    url: '/festivas/pascoa/festiva/coelinho',
-    notasAromaticas: ['Notas de frutas vermelhas frescas', 'Toques de baunilha', 'Aroma doce e acolhedor'],
-    caracteristicas: [
-      'Feita com cera de soja 100% natural',
-      'Pavio de algodão ecológico',
-      'Livre de toxinas e parabenos',
-    ],
-    composicao: ['Cera de soja 100% natural', 'Pavio de algodão', 'Óleos essenciais de alta qualidade'],
-    cuidados: [
-      'Mantenha a vela longe de materiais inflamáveis.',
-      'Corte o pavio para 0,5 cm antes de cada uso.',
-      'Não deixe a vela acesa sem supervisão.',
-    ],
-    beneficiosAromaticos: [
-      'Relaxamento e alívio do estresse com notas de lavanda.',
-      'Energia e foco com notas cítricas.',
-      'Ambiente acolhedor com notas amadeiradas.',
-    ],
-  },
-]);
+const volumeOptions = [
+  { label: '500ml', value: '500ml' },
+  { label: '250ml', value: '250ml' },
+];
 
 watch(
   () => route.params.id,
@@ -234,48 +22,237 @@ watch(
   }
 );
 
+const produtos = ref([
+  {
+    id: 'frutas_vermelhas',
+    name: 'Frutas vermelhas',
+    description:
+      'Um aroma envolvente e marcante, com notas doces e vibrantes que remetem à mistura de frutas vermelhas frescas. Ideal para criar um ambiente acolhedor e cheio de personalidade. Feita artesanalmente em pote de gesso com um pavio maravilhoso de madeira, que proporciona uma queima elegante e um leve crepitar encantador. Disponível também na versão com óleo essencial da doTERRA, para uma experiência ainda mais intensa e terapêutica.',
+    img: ['/vela-frutas-vermelhas.png', '/pote-vela-grande-mao.png'],
+    price: 'R$ 55,00',
+    url: '/velas/aromaticas/vela/frutas_vermelhas',
+    otherVolume: true,
+    doTERRA: true,
+    notasAromaticas: [
+      'Notas de saída: Morango, Laranja, Framboesa, Uva, Melão',
+      'Notas de corpo: Flor de Laranjeira, Frésia, Cassis',
+      'Notas de fundo: Baunilha, Musk, Caramelo',
+    ],
+    caracteristicas: ['Feita com cera de soja 100% natural', 'Pavio de madeira', 'Livre de toxinas e parabenos'],
+    composicao: ['Cera de soja 100% natural', 'Pavio de madeira', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+  },
+  {
+    id: 'cherry_blossom',
+    name: 'Cherry Blossom',
+    description:
+      'Inspirada na delicadeza das flores de cerejeira, esta vela traz um aroma suave, romântico e acolhedor, ideal para momentos de tranquilidade e bem-estar. Acompanha um pote feito à mão em gesso e um pavio maravilhoso de madeira, que crepita suavemente ao queimar e intensifica a experiência sensorial.',
+    img: ['/vela-cherry.png', '/pote-vela-grande-mao.png'],
+    price: 'R$ 55,00',
+    url: '/velas/aromaticas/vela/cherry_blossom',
+    otherVolume: true,
+    notasAromaticas: [
+      'Notas de saída: Pera, Maçã, Melão, Morango',
+      'Notas de corpo: Rosa, Cassis, Ameixa, Jasmim, Violeta, Lírio do Vale',
+      'Notas de fundo: Musk, Sândalo, Baunilha',
+    ],
+    caracteristicas: ['Feita com cera de soja 100% natural', 'Pavio de madeira', 'Livre de toxinas e parabenos'],
+    composicao: ['Cera de soja 100% natural', 'Pavio de madeira', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+  },
+  {
+    id: 'flor_de_figo',
+    name: 'Flor de figo',
+    description:
+      'Sofisticada e única, a Flor de Figo traz um perfume floral adocicado com um leve toque verde. Uma fragrância refinada que transforma qualquer espaço em um refúgio sensorial. Produzida em um pote artesanal de gesso com um pavio maravilhoso de madeira, que além de perfumar, proporciona um toque sonoro relaxante.',
+    img: ['/vela-figo.png', '/pote-vela-grande-mao.png'],
+    price: 'R$ 55,00',
+    url: '/velas/aromaticas/vela/flor_de_figo',
+    otherVolume: true,
+    notasAromaticas: [
+      'Notas de saída: Cassis, Toranja, Acorde verde',
+      'Notas de corpo: Maça, folhas de figo',
+      'Notas de fundo: Sandalo, Baunilha, Caramelo',
+    ],
+    caracteristicas: ['Feita com cera de soja 100% natural', 'Pavio de madeira', 'Livre de toxinas e parabenos'],
+    composicao: ['Cera de soja 100% natural', 'Pavio de madeira', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+  },
+  {
+    id: 'lavanda',
+    name: 'Lavanda',
+    description:
+      'Clássica da aromaterapia, a lavanda oferece um perfume herbal e calmante, perfeito para relaxar, meditar ou desacelerar no fim do dia. Em pote artesanal de gesso, com um pavio maravilhoso de madeira que transforma o ato de acender uma vela em um verdadeiro ritual de bem-estar.',
+    img: ['/vela-lavanda.png', '/pote-vela-grande-mao.png'],
+    price: 'R$ 55,00',
+    url: '/velas/aromaticas/vela/lavanda',
+    otherVolume: true,
+    doTERRA: true,
+    notasAromaticas: [
+      'Notas de saída: Lima, lavanda e bergamota',
+      'Notas de corpo: Rosa, cedro, jasmin e patchouli',
+      'Notas de fundo: Musk, âmbar, baunilha e fava tonka',
+    ],
+    caracteristicas: ['Feita com cera de soja 100% natural', 'Pavio de madeira', 'Livre de toxinas e parabenos'],
+    composicao: ['Cera de soja 100% natural', 'Pavio de madeira', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+  },
+  {
+    id: 'baunilha',
+    name: 'Baunilha',
+    description:
+      'Adoce o ambiente com o calor envolvente da baunilha. Seu aroma cremoso desperta memórias afetivas e sensações de aconchego. Feita em um elegante pote de gesso e acompanhada de um pavio maravilhoso de madeira, que proporciona uma queima charmosa e reconfortante.',
+    img: ['/vela-baunilha.png', '/pote-vela-grande-mao.png'],
+    price: 'R$ 55,00',
+    url: '/velas/aromaticas/vela/baunilha',
+    otherVolume: true,
+    notasAromaticas: [
+      'Notas de saída: Anis, Pessêgo',
+      'Notas de corpo: Coco, Sândalo',
+      'Notas de fundo: Musk, Baunilha, Caramelo',
+    ],
+    caracteristicas: ['Feita com cera de soja 100% natural', 'Pavio de madeira', 'Livre de toxinas e parabenos'],
+    composicao: ['Cera de soja 100% natural', 'Pavio de madeira', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+    ],
+  },
+  {
+    id: 'porta-vela-pequeno',
+    name: 'Porta-Vela Pequeno',
+    description:
+      'Delicado e funcional, o porta-vela pequeno é feito à mão com gesso refinado, sendo perfeito para velas menores ou para apoiar pequenos objetos como anéis. Seu visual minimalista e acabamento artesanal tornam qualquer cantinho mais especial.',
+    img: ['/porta-vela-pequeno.png', '/porta-vela-pequeno-mao.png'],
+    price: 'R$ 05,00',
+    url: '/decorativos/porta-velas/decorativo/porta-vela-pequeno',
+  },
+  {
+    id: 'porta-vela-grande',
+    name: 'Porta-Vela Grande',
+    description:
+      'Com design sofisticado e presença marcante, o porta-vela grande é feito artesanalmente em gesso de alta qualidade. Ideal para apoiar velas maiores ou compor a decoração com estilo e equilíbrio. Seu acabamento delicado e textura suave fazem dele uma peça versátil e encantadora.',
+    img: ['/porta-vela-grande.png', '/porta-vela-grande-mao.png'],
+    price: 'R$ 09,90',
+    url: '/decorativos/porta-velas/decorativo/porta-vela-grande',
+  },
+  {
+    id: 'soft-bubble',
+    name: 'Soft Bubble',
+    description:
+      'Pequena no tamanho, mas cheia de charme. A mini-bubble é ideal para montar kits especiais ou perfumar cantinhos com delicadeza e estilo. Feita com parafina pura, pavio central de algodão e enriquecida com as essências dos nossos aromas — disponível em todas as fragrâncias da Arka Velas.',
+    img: ['/bubble-pequena-branca.png', '/bubble-pequena-mao.png'],
+    price: 'R$ 10,00',
+    url: '/velas/decorativas/vela/soft-bubble',
+    doTERRA: true,
+    caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
+    composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+      'Coloque a vela em uma superfície resistente ao calor.',
+    ],
+  },
+  {
+    id: 'bubble',
+    name: 'Bubble',
+    description:
+      'Um clássico moderno com design escultural e presença marcante. A vela bubble é perfeita para quem busca um toque de arte e sofisticação na decoração. Produzida com parafina de alta qualidade e dois pavios de algodão, recebe as essências exclusivas da Arka Velas e está disponível em todos os nossos aromas.',
+    img: ['/bubble-branca.png', '/bubble-mao.png'],
+    price: 'R$ 18,00',
+    url: '/velas/decorativas/vela/bubble',
+    doTERRA: true,
+    caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
+    composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+      'Coloque a vela em uma superfície resistente ao calor.',
+    ],
+  },
+  {
+    id: 'coelinho',
+    name: 'Coelinho',
+    description:
+      'Delicada e encantadora, a vela de coelhinho é ideal para presentear, decorar ou tornar momentos ainda mais especiais. Seu design lúdico combina com o perfume envolvente dos nossos aromas. Produzida em parafina de alta qualidade e perfumada com as essências exclusivas da Arka Velas, está disponível em todos os nossos aromas.',
+    img: ['/vela-coelho.png', '/vela-coelho2.png'],
+    price: 'R$ 12,00',
+    url: '/festivas/pascoa/festiva/coelinho',
+    doTERRA: true,
+    caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
+    composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
+    cuidados: [
+      'Mantenha a vela longe de materiais inflamáveis.',
+      'Corte o pavio para 0,5 cm antes de cada uso.',
+      'Não deixe a vela acesa sem supervisão.',
+      'Coloque a vela em uma superfície resistente ao calor.',
+    ],
+  },
+]);
+
 const produto = computed(() => produtos.value.find((item) => item.id === id.value));
 
-const selectedQty = ref(1);
+const selectedPrice = computed(() => {
+  let basePrice;
 
+  if (selectedVolume.value === '250ml') {
+    basePrice = 35.0;
+  } else {
+    basePrice = parseFloat(produto.value?.price.replace('R$', '').replace(',', '.')) || 0;
+  }
+
+  if (withDoTERRA.value) {
+    basePrice += 4;
+  }
+
+  return `R$ ${basePrice.toFixed(2).replace('.', ',')}`;
+});
+
+const selectedQty = ref(1);
 const cart = useCartStore();
 
 function comprar() {
+  if (!produto.value) return;
   if (!produto.value) return;
 
   const produtoCart = {
     ...produto.value,
     quantity: selectedQty.value,
+    price: selectedPrice.value,
   };
+
+  if (produto.value.otherVolume) {
+    produtoCart.volume = selectedVolume.value;
+  }
 
   cart.addToCart(produtoCart);
 }
 
-const isOpen = ref(false);
-const isOpen2 = ref(false);
-const isOpen3 = ref(false);
-const isOpen4 = ref(false);
-const isOpen5 = ref(false);
-
-function toggleAccordion() {
-  isOpen.value = !isOpen.value;
-}
-
-function toggleAccordion2() {
-  isOpen2.value = !isOpen2.value;
-}
-
-function toggleAccordion3() {
-  isOpen3.value = !isOpen3.value;
-}
-
-function toggleAccordion4() {
-  isOpen4.value = !isOpen4.value;
-}
-
-function toggleAccordion5() {
-  isOpen5.value = !isOpen5.value;
-}
+const accordions = ref({
+  notas: false,
+  caracteristicas: false,
+  composicao: false,
+  cuidados: false,
+});
 
 const currentImgIndex = ref(0);
 
@@ -299,133 +276,158 @@ function prevImage() {
 <template>
   <section class="flex flex-col md:flex-row w-full pb-24">
     <div class="w-full md:w-1/2 relative">
-      <img :src="produto.img[currentImgIndex]" class="w-full h-[40rem] object-cover" alt="Imagem do produto" />
-      <button
-        @click="prevImage"
-        class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full shadow hover:bg-white"
-      >
-        ‹
-      </button>
-      <button
-        @click="nextImage"
-        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full shadow hover:bg-white"
-      >
-        ›
-      </button>
-      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
-        <span
-          v-for="(img, i) in produto.img"
-          :key="i"
-          class="w-2 h-2 rounded-full"
-          :class="i === currentImgIndex ? 'bg-[#3A4766]' : 'bg-gray-300'"
-        ></span>
+      <div class="relative h-[40rem]">
+        <img :src="produto.img[currentImgIndex]" class="w-full h-full object-cover" alt="Imagem do produto" />
+
+        <button
+          @click="prevImage"
+          class="cursor-pointer absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full shadow hover:bg-white z-10"
+        >
+          ‹
+        </button>
+        <button
+          @click="nextImage"
+          class="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/70 p-2 rounded-full shadow hover:bg-white z-10"
+        >
+          ›
+        </button>
+
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1">
+          <span
+            v-for="(img, i) in produto.img"
+            :key="i"
+            class="w-2 h-2 rounded-full"
+            :class="i === currentImgIndex ? 'bg-[#3A4766]' : 'bg-gray-300'"
+          ></span>
+        </div>
       </div>
     </div>
     <div class="w-full md:w-1/2 flex flex-col gap-y-4 py-4 md:py-0 px-4 md:px-6">
       <h2 class="text-2xl md:text-3xl uppercase">{{ produto.name }}</h2>
-      <span class="text-xl md:text-2xl uppercase">{{ produto.price }}</span>
-      <div class="flex items-center w-full space-x-4">
-        <QuantitySelector v-model="selectedQty" :min="1" :max="10" />
+      <span class="text-xl md:text-2xl uppercase">
+        {{ selectedPrice }}
+      </span>
+
+      <div class="flex flex-col space-y-4">
+        <div class="flex space-x-2" v-if="produto.otherVolume">
+          <button
+            v-for="option in volumeOptions"
+            :key="option.value"
+            @click="selectedVolume = option.value"
+            :class="[
+              'px-4 py-2 rounded-md border transition duration-300 ease-in-out w-full cursor-pointer',
+              selectedVolume === option.value
+                ? 'bg-[#6f747e] text-white border-[#6f747e]'
+                : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100',
+            ]"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+
         <button
-          @click="comprar"
-          class="bg-[#3A4766] w-full text-center text-white py-2 px-4 rounded-md hover:bg-[#414f70] transition duration-200 ease-in-out cursor-pointer"
+          v-if="produto.doTERRA"
+          @click="withDoTERRA = !withDoTERRA"
+          :class="[
+            'px-4 py-2 rounded-md border transition duration-300 ease-in-out w-full cursor-pointer',
+            withDoTERRA === true
+              ? 'bg-[#6f747e] text-white border-[#6f747e]'
+              : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100',
+          ]"
         >
-          Comprar
+          Incluir Óleo doTERRA
         </button>
+
+        <div class="flex items-center w-full space-x-4">
+          <QuantitySelector v-model="selectedQty" :min="1" :max="10" />
+          <button
+            @click="comprar"
+            class="bg-[#3A4766] w-full text-center text-white py-2 px-4 rounded-md hover:bg-[#414f70] transition duration-200 ease-in-out cursor-pointer"
+          >
+            Comprar
+          </button>
+        </div>
       </div>
+
       <span class="text-md text-gray-500 font-light">
         {{ produto.description }}
       </span>
 
-      <hr class="text-gray-400" />
-
-      <div class="overflow-hidden" v-if="produto.notasAromaticas">
-        <button @click="toggleAccordion" class="w-full flex justify-between items-center font-medium px-2">
+      <template v-if="produto.notasAromaticas">
+        <hr class="text-gray-400" />
+        <button
+          @click="accordions.notas = !accordions.notas"
+          class="w-full flex justify-between items-center font-medium px-2"
+        >
           <span class="uppercase font-light">Notas aromáticas</span>
           <span class="w-4 h-4">
-            <ArrowDownIcon v-if="!isOpen" class="w-4 h-4 text-[#3A4766]" />
-            <ArrowUpIcon v-if="isOpen" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowDownIcon v-if="!accordions.notas" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-else class="w-4 h-4 text-[#3A4766]" />
           </span>
         </button>
-
-        <div v-show="isOpen" class="py-3 bg-white px-6">
+        <div v-show="accordions.notas" class="py-3 bg-white px-6">
           <ul class="list-disc list-inside text-sm">
             <li v-for="nota in produto.notasAromaticas" :key="nota">{{ nota }}</li>
           </ul>
         </div>
-      </div>
+      </template>
 
-      <hr class="text-gray-400" v-if="produto.caracteristicas" />
-
-      <div class="overflow-hidden" v-if="produto.caracteristicas">
-        <button @click="toggleAccordion2" class="w-full flex justify-between items-center font-medium px-2">
+      <template v-if="produto.caracteristicas">
+        <hr class="text-gray-400" />
+        <button
+          @click="accordions.caracteristicas = !accordions.caracteristicas"
+          class="w-full flex justify-between items-center font-medium px-2"
+        >
           <span class="uppercase font-light">Características</span>
           <span class="w-4 h-4">
-            <ArrowDownIcon v-if="!isOpen2" class="w-4 h-4 text-[#3A4766]" />
-            <ArrowUpIcon v-if="isOpen2" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowDownIcon v-if="!accordions.caracteristicas" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-else class="w-4 h-4 text-[#3A4766]" />
           </span>
         </button>
-
-        <div v-show="isOpen2" class="py-3 bg-white px-6">
+        <div v-show="accordions.caracteristicas" class="py-3 bg-white px-6">
           <ul class="list-disc list-inside text-sm">
             <li v-for="caracteristica in produto.caracteristicas" :key="caracteristica">{{ caracteristica }}</li>
           </ul>
         </div>
-      </div>
+      </template>
 
-      <hr class="text-gray-400" v-if="produto.composicao" />
-
-      <div class="overflow-hidden" v-if="produto.composicao">
-        <button @click="toggleAccordion3" class="w-full flex justify-between items-center font-medium px-2">
+      <template v-if="produto.composicao">
+        <hr class="text-gray-400" />
+        <button
+          @click="accordions.composicao = !accordions.composicao"
+          class="w-full flex justify-between items-center font-medium px-2"
+        >
           <span class="uppercase font-light">Composição</span>
           <span class="w-4 h-4">
-            <ArrowDownIcon v-if="!isOpen3" class="w-4 h-4 text-[#3A4766]" />
-            <ArrowUpIcon v-if="isOpen3" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowDownIcon v-if="!accordions.composicao" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-else class="w-4 h-4 text-[#3A4766]" />
           </span>
         </button>
-
-        <div v-show="isOpen3" class="py-3 bg-white px-6">
+        <div v-show="accordions.composicao" class="py-3 bg-white px-6">
           <ul class="list-disc list-inside text-sm">
             <li v-for="componente in produto.composicao" :key="componente">{{ componente }}</li>
           </ul>
         </div>
-      </div>
+      </template>
 
-      <hr class="text-gray-400" v-if="produto.cuidados" />
-
-      <div class="overflow-hidden" v-if="produto.cuidados">
-        <button @click="toggleAccordion4" class="w-full flex justify-between items-center font-medium px-2">
+      <template v-if="produto.cuidados">
+        <hr class="text-gray-400" />
+        <button
+          @click="accordions.cuidados = !accordions.cuidados"
+          class="w-full flex justify-between items-center font-medium px-2"
+        >
           <span class="uppercase font-light">Cuidados e instruções</span>
           <span class="w-4 h-4">
-            <ArrowDownIcon v-if="!isOpen4" class="w-4 h-4 text-[#3A4766]" />
-            <ArrowUpIcon v-if="isOpen4" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowDownIcon v-if="!accordions.cuidados" class="w-4 h-4 text-[#3A4766]" />
+            <ArrowUpIcon v-else class="w-4 h-4 text-[#3A4766]" />
           </span>
         </button>
-
-        <div v-show="isOpen4" class="py-3 bg-white px-6">
+        <div v-show="accordions.cuidados" class="py-3 bg-white px-6">
           <ul class="list-disc list-inside text-sm">
             <li v-for="cuidado in produto.cuidados" :key="cuidado">{{ cuidado }}</li>
           </ul>
         </div>
-      </div>
-
-      <hr class="text-gray-400" v-if="produto.beneficiosAromaticos" />
-
-      <div class="overflow-hidden" v-if="produto.beneficiosAromaticos">
-        <button @click="toggleAccordion5" class="w-full flex justify-between items-center font-medium px-2">
-          <span class="uppercase font-light">Benefícios aromáticos</span>
-          <span class="w-4 h-4">
-            <ArrowDownIcon v-if="!isOpen5" class="w-4 h-4 text-[#3A4766]" />
-            <ArrowUpIcon v-if="isOpen5" class="w-4 h-4 text-[#3A4766]" />
-          </span>
-        </button>
-
-        <div v-show="isOpen5" class="py-3 bg-white px-6">
-          <ul class="list-disc list-inside text-sm">
-            <li v-for="beneficio in produto.beneficiosAromaticos" :key="beneficio">{{ beneficio }}</li>
-          </ul>
-        </div>
-      </div>
+      </template>
     </div>
   </section>
 </template>

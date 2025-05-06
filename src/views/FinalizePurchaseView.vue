@@ -34,7 +34,7 @@ function finalizePurchase() {
                 </div>
                 <div>
                   <p class="font-medium text-gray-800">{{ item.name }}</p>
-                  <p class="text-sm text-gray-500">{{ item.description }}</p>
+                  <p class="text-sm text-gray-500">{{ item.volume }}</p>
                 </div>
               </td>
               <td class="text-center p-4 hidden lg:table-cell">{{ item.price }}</td>
@@ -86,7 +86,7 @@ function finalizePurchase() {
               </router-link>
               <div class="flex-1">
                 <p class="font-medium text-gray-800">{{ item.name }}</p>
-                <p class="text-sm text-gray-500">{{ item.description }}</p>
+                <p class="text-sm text-gray-500">{{ item.volume }}</p>
                 <p class="text-sm font-bold text-gray-800 mt-2">R$ {{ item.price }}</p>
               </div>
             </div>

@@ -168,7 +168,10 @@
               <div class="flex flex-col justify-between flex-1 gap-1">
                 <div class="flex justify-between items-center">
                   <span class="text-lg font-medium uppercase w-30 text-gray-800 text-break">{{ cartItem.name }}</span>
-                  <span class="text-sm font-light text-gray-600">x{{ cartItem.quantity }}</span>
+                  <div class="flex flex-col items-end">
+                    <span class="text-sm font-light text-gray-600">x{{ cartItem.quantity }}</span>
+                    <span v-if="cartItem.volume" class="text-xs font-light text-gray-600">x{{ cartItem.volume }}</span>
+                  </div>
                 </div>
                 <span class="text-md font-light text-gray-700">{{ cartItem.price }}</span>
               </div>

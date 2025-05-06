@@ -27,7 +27,7 @@ export const useCartStore = defineStore('cart', () => {
   calculateTotalPrice();
 
   function addToCart(produto) {
-    const existing = cartItems.value.find((item) => item.id === produto.id);
+    const existing = cartItems.value.find((item) => item.id === produto.id && item.volume === produto.volume);
 
     if (existing) {
       existing.quantity += produto.quantity;
