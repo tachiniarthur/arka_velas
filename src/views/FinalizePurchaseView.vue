@@ -3,7 +3,13 @@ import { useCartStore } from '@/stores/useCartStore';
 
 const cart = useCartStore();
 function finalizePurchase() {
-  const message = cart.cartItems.map((item) => `🕯️ ${item.name} - Quantidade: ${item.quantity}`).join('%0A');
+  const message = cart.cartItems
+    .map((item) => {
+      const doTERRAStatus = item.withDoTERRA ? 'com doTERRA' : 'sem doTERRA';
+
+      return `🕯️ ${item.name} - ${doTERRAStatus} - Quantidade: ${item.quantity}`;
+    })
+    .join('%0A');
 
   const whatsappLink = `https://api.whatsapp.com/send?phone=5547984140502&text=Olá!%20😊%0AAcabei%20de%20finalizar%20meu%20pedido%20no%20site%20e%20estou%20interessado%20nos%20seguintes%20produtos:%0A%0A${message}%0A%0APoderia%20me%20confirmar%20a%20disponibilidade%20e%20os%20próximos%20passos%20para%20o%20pagamento%20e%20envio?%0AObrigado(a)!%20🌿✨`;
 

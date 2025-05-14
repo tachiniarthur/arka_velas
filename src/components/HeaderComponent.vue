@@ -141,10 +141,10 @@
       </div>
     </nav>
 
-    <div v-if="showStoreMenu" class="fixed inset-0 z-40 bg-black opacity-50" @click="closeStoreMenu"></div>
+    <div v-if="cart.isCartOpen" class="fixed inset-0 z-40 bg-black opacity-50" @click="closeStoreMenu"></div>
 
     <div
-      v-if="showStoreMenu"
+      v-if="cart.isCartOpen"
       class="fixed inset-y-0 right-0 z-50 w-80 bg-white shadow-lg transform transition duration-300 ease-in-out max-h-screen h-full flex flex-col"
     >
       <div class="p-4">
@@ -311,7 +311,6 @@ const subItemsProdutos = ref([
 
 const showSecondHeader = ref(false);
 const showSecondHeaderProdutos = ref(false);
-const showStoreMenu = ref(false);
 
 const isMobileMenuOpen = ref(false);
 const isSubMenuOpen = ref(false);
@@ -325,8 +324,8 @@ const toggleSecondHeader = (item) => {
     showSecondHeaderProdutos.value = !showSecondHeaderProdutos.value;
     showSecondHeader.value = false;
   }
-  if (showStoreMenu.value) {
-    showStoreMenu.value = !showStoreMenu.value;
+  if (cart.isCartOpen) {
+    cart.isCartOpen = !cart.isCartOpen;
   }
 };
 
@@ -336,7 +335,7 @@ const closeSecondHeader = () => {
 };
 
 const toggleStoreMenu = () => {
-  showStoreMenu.value = !showStoreMenu.value;
+  cart.isCartOpen = !cart.isCartOpen;
   if (showSecondHeader.value) {
     showSecondHeader.value = !showSecondHeader.value;
   }
@@ -359,13 +358,13 @@ const toggleStoreMenu = () => {
 };
 
 const closeStoreMenu = () => {
-  showStoreMenu.value = false;
+  cart.isCartOpen = false;
 };
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
-  if (showStoreMenu.value) {
-    showStoreMenu.value = !showStoreMenu.value;
+  if (cart.isCartOpen) {
+    cart.isCartOpen = !cart.isCartOpen;
   }
 };
 

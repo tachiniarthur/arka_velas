@@ -3,7 +3,7 @@
     <h2 class="text-3xl mb-6 text-gray-800 uppercase">Sobre nós</h2>
     <section class="flex flex-col md:flex-row w-full md:mb-6">
       <div class="w-full md:w-2/3">
-        <img :src="'/vela-figo.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
+        <img :src="'/img-sobre-1.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
       </div>
       <div class="w-full md:w-1/3 flex flex-col gap-y-4 py-4 md:py-0 px-4 md:px-6">
         <h2 class="text-3xl mb-6 text-gray-800 uppercase">Sobre a Arka Velas</h2>
@@ -34,12 +34,12 @@
         </ul>
       </div>
       <div class="w-full md:w-1/3">
-        <img :src="'/vela-figo.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
+        <img :src="'/img-sobre-2.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
       </div>
     </section>
     <section class="flex flex-col md:flex-row w-full md:mb-6">
       <div class="w-full md:w-1/2">
-        <img :src="'/vela-figo.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
+        <img :src="'/img-sobre-3.png'" class="w-full h-[30rem] object-cover" alt="Imagem do produto" />
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-y-4 py-4 md:py-0 px-4 md:px-6">
         <h2 class="text-3xl mb-6 text-gray-800 uppercase">Aromas que despertam emoções</h2>

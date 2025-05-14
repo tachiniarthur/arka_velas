@@ -4,7 +4,7 @@
       <h2 class="text-3xl mb-6 text-gray-800 uppercase">História</h2>
       <div class="flex flex-col md:flex-row gap-y-4 md:gap-y-0 gap-x-4">
         <div class="md:w-1/2">
-          <img :src="'/vela-lavanda.png'" alt="History Image" class="w-full h-96 md:h-[26rem]" />
+          <img :src="'/vela-pequena.png'" alt="History Image" class="w-full h-96 md:h-[32rem]" />
         </div>
         <div class="md:w-1/2 px-4 md:px-0">
           <p class="text-lg font-light text-gray-800">

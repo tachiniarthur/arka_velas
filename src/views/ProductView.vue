@@ -232,12 +232,12 @@ const cart = useCartStore();
 
 function comprar() {
   if (!produto.value) return;
-  if (!produto.value) return;
 
   const produtoCart = {
     ...produto.value,
     quantity: selectedQty.value,
     price: selectedPrice.value,
+    withDoTERRA: withDoTERRA.value,
   };
 
   if (produto.value.otherVolume) {

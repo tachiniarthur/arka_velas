@@ -10,6 +10,7 @@ export const useCartStore = defineStore('cart', () => {
   const totalPrice = ref('R$ 0,00');
 
   const cartItems = ref(savedItems);
+  const isCartOpen = ref(false);
   const countItens = ref(savedCount);
 
   function calculateTotalPrice() {
@@ -42,6 +43,12 @@ export const useCartStore = defineStore('cart', () => {
       Cookies.set('cartItems', JSON.stringify(cartItems.value), { expires: 1 });
       Cookies.set('countItens', countItens.value, { expires: 1 });
     }
+
+    isCartOpen.value = true;
+  }
+
+  function toggleCart() {
+    isCartOpen.value = !isCartOpen.value;
   }
 
   function removeItem(produto) {
@@ -92,5 +99,15 @@ export const useCartStore = defineStore('cart', () => {
     { deep: true }
   );
 
-  return { cartItems, countItens, totalPrice, addToCart, removeItem, increaseQuantity, decreaseQuantity };
+  return {
+    cartItems,
+    isCartOpen,
+    countItens,
+    totalPrice,
+    addToCart,
+    toggleCart,
+    removeItem,
+    increaseQuantity,
+    decreaseQuantity,
+  };
 });
