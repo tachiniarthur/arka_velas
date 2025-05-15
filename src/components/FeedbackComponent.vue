@@ -3,12 +3,36 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 
 const feedbacks = ref([
-  { id: 1, name: 'Pessoa 1', text: 'Primeiro feedback' },
-  { id: 2, name: 'Pessoa 2', text: 'Segundo feedback' },
-  { id: 3, name: 'Pessoa 3', text: 'Terceiro feedback' },
-  { id: 4, name: 'Pessoa 4', text: 'Quarto feedback' },
-  { id: 5, name: 'Pessoa 5', text: 'Quinto feedback' },
-  { id: 6, name: 'Pessoa 6', text: 'Sexto feedback' },
+  {
+    id: 1,
+    name: 'Giordano',
+    text: 'O cuidado nos detalhes é visível. Desde o aroma até o acabamento do pote, tudo transmite carinho e qualidade.',
+  },
+  {
+    id: 2,
+    name: 'Julia',
+    text: 'Apenas elogios, tudo maravilhoso! Qualidade impecável, e não vejo a hora de comprar outro aroma!',
+  },
+  {
+    id: 3,
+    name: 'Dilcele',
+    text: 'Comprei a vela de flor de figo e simplesmente amei! O cheiro é delicado e o pote é lindo demais.',
+  },
+  {
+    id: 4,
+    name: 'Valneza',
+    text: 'Entrega super rápida e o aroma da vela de frutas vermelhas com óleo essencial é perfeito! Recomendo demais.',
+  },
+  {
+    id: 5,
+    name: 'Dhyego',
+    text: 'Vela maravilhosa, pavio de madeira faz toda a diferença! Um toque sofisticado que deixa o ambiente aconchegante',
+  },
+  {
+    id: 6,
+    name: 'Adolar',
+    text: 'Já é a terceira vez que compro. A qualidade continua impecável, e o design dos potes é um charme!',
+  },
 ]);
 
 const currentPosition = ref(0);
