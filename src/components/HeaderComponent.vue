@@ -156,7 +156,7 @@
         <ul class="space-y-4" v-if="cart.cartItems.length > 0">
           <li class="flex flex-col" v-for="cartItem in cart.cartItems" :key="cartItem.id">
             <div class="group flex items-start gap-2 relative" :title="'Visualizar ' + cartItem.name">
-              <router-link class="relative w-22 h-22 flex-shrink-0 overflow-hidden" :to="cartItem.url">
+              <router-link class="relative w-25 h-25 flex-shrink-0 overflow-hidden" :to="cartItem.url">
                 <img class="w-full h-full object-cover" :src="cartItem.img[0]" :alt="cartItem.name" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div
@@ -167,13 +167,19 @@
               </router-link>
               <div class="flex flex-col justify-between flex-1 gap-1">
                 <div class="flex justify-between items-center">
-                  <span class="text-lg font-medium uppercase w-30 text-gray-800 text-break">{{ cartItem.name }}</span>
+                  <div class="flex flex-col gap-y-1">
+                    <span class="text-md font-medium uppercase w-30 text-gray-800 text-break">{{ cartItem.name }}</span>
+                    <span v-if="cartItem.selectedAroma" class="text-xs font-light text-gray-600">{{
+                      cartItem.selectedAroma
+                    }}</span>
+                    <span v-if="cartItem.withDoTERRA" class="text-xs font-light text-gray-600">Com doTERRA</span>
+                  </div>
                   <div class="flex flex-col items-end">
                     <span class="text-sm font-light text-gray-600">x{{ cartItem.quantity }}</span>
                     <span v-if="cartItem.volume" class="text-xs font-light text-gray-600">x{{ cartItem.volume }}</span>
                   </div>
                 </div>
-                <span class="text-md font-light text-gray-700">{{ cartItem.price }}</span>
+                <span class="text-md font-medium uppercase w-30 text-gray-800">{{ cartItem.price }}</span>
               </div>
               <button
                 type="button"

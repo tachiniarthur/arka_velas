@@ -40,7 +40,9 @@ function finalizePurchase() {
                 </div>
                 <div>
                   <p class="font-medium text-gray-800">{{ item.name }}</p>
-                  <p class="text-sm text-gray-500">{{ item.volume }}</p>
+                  <p v-if="item.selectedAroma" class="text-sm text-gray-500">{{ item.selectedAroma }}</p>
+                  <p v-if="item.withDoTERRA" class="text-sm text-gray-500">Com doTERRA</p>
+                  <p v-if="item.volume" class="text-sm text-gray-500">{{ item.volume }}</p>
                 </div>
               </td>
               <td class="text-center p-4 hidden lg:table-cell">{{ item.price }}</td>
@@ -51,7 +53,7 @@ function finalizePurchase() {
                   <button
                     type="button"
                     class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
-                    @click="cart.decreaseQuantity(item.id)"
+                    @click="cart.decreaseQuantity(item)"
                   >
                     -
                   </button>
@@ -61,7 +63,7 @@ function finalizePurchase() {
                   <button
                     type="button"
                     class="w-1/3 h-full bg-white hover:bg-gray-100 text-[#3A4766] font-semibold text-lg cursor-pointer"
-                    @click="cart.increaseQuantity(item.id)"
+                    @click="cart.increaseQuantity(item)"
                   >
                     +
                   </button>
@@ -92,7 +94,9 @@ function finalizePurchase() {
               </router-link>
               <div class="flex-1">
                 <p class="font-medium text-gray-800">{{ item.name }}</p>
-                <p class="text-sm text-gray-500">{{ item.volume }}</p>
+                <p v-if="item.selectedAroma" class="text-sm text-gray-500">{{ item.selectedAroma }}</p>
+                <p v-if="item.withDoTERRA" class="text-sm text-gray-500">Com doTERRA</p>
+                <p v-if="item.volume" class="text-sm text-gray-500">{{ item.volume }}</p>
                 <p class="text-sm font-bold text-gray-800 mt-2">R$ {{ item.price }}</p>
               </div>
             </div>

@@ -4,7 +4,7 @@
       <h2 class="text-3xl mb-6 text-gray-800 uppercase">História</h2>
       <div class="flex flex-col md:flex-row gap-y-4 md:gap-y-0 gap-x-4">
         <div class="md:w-1/2">
-          <img :src="'/vela-pequena.png'" alt="History Image" class="w-full h-96 md:h-[32rem]" />
+          <img :src="'/vela-pequena.png'" alt="History Image" class="w-full h-[28rem] md:h-[45rem]" />
         </div>
         <div class="md:w-1/2 px-4 md:px-0">
           <p class="text-lg font-light text-gray-800">
@@ -12,6 +12,12 @@
             união entre fragrância, estética e significado. Acreditamos que acender uma vela é mais do que iluminar um
             espaço — é um ato de pausa, de presença, de autocuidado. Cada vela que criamos carrega consigo um pedaço da
             nossa história, feita com dedicação, arte e um profundo respeito pelos detalhes.
+            <br /><br />
+            Desde os primeiros moldes feitos à mão até a escolha criteriosa de cada aroma, buscamos oferecer não apenas
+            um produto, mas uma experiência sensorial completa. Utilizamos cera 100% natural e vegetal, pavio de madeira
+            que crepita suavemente e fragrâncias selecionadas para despertar memórias, emoções e bem-estar. O cuidado
+            artesanal com que produzimos nossos potes e a atenção a cada etapa do processo refletem nosso compromisso
+            com a beleza, a sustentabilidade e o significado por trás de cada vela.
           </p>
         </div>
       </div>

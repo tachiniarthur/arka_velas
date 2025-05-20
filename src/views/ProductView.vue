@@ -15,6 +15,22 @@ const volumeOptions = [
   { label: '250ml', value: '250ml' },
 ];
 
+const aromas = ref([
+  { aroma: 'Frutas Vermelhas', doTERRA: true },
+  { aroma: 'Cherry Blossom', doTERRA: false },
+  { aroma: 'Flor de Figo', doTERRA: false },
+  { aroma: 'Lavanda', doTERRA: true },
+  { aroma: 'Baunilha', doTERRA: false },
+]);
+
+const selectedAroma = ref(aromas.value[0]);
+
+watch(selectedAroma, (newValue) => {
+  if (!newValue.doTERRA) {
+    withDoTERRA.value = false;
+  }
+});
+
 watch(
   () => route.params.id,
   (newId) => {
@@ -28,7 +44,7 @@ const produtos = ref([
     name: 'Frutas vermelhas',
     description:
       'Um aroma envolvente e marcante, com notas doces e vibrantes que remetem à mistura de frutas vermelhas frescas. Ideal para criar um ambiente acolhedor e cheio de personalidade. Feita artesanalmente em pote de gesso com um pavio maravilhoso de madeira, que proporciona uma queima elegante e um leve crepitar encantador. Disponível também na versão com óleo essencial da doTERRA, para uma experiência ainda mais intensa e terapêutica.',
-    img: ['/vela-frutas-vermelhas.png', '/pote-vela-grande-mao.png'],
+    img: ['/vela-frutas-vermelhas.png', '/pote-vela-grande-mao.png', '/pote-vela-pequena-mao.png'],
     price: 'R$ 55,00',
     url: '/velas/aromaticas/vela/frutas_vermelhas',
     otherVolume: true,
@@ -51,7 +67,7 @@ const produtos = ref([
     name: 'Cherry Blossom',
     description:
       'Inspirada na delicadeza das flores de cerejeira, esta vela traz um aroma suave, romântico e acolhedor, ideal para momentos de tranquilidade e bem-estar. Acompanha um pote feito à mão em gesso e um pavio maravilhoso de madeira, que crepita suavemente ao queimar e intensifica a experiência sensorial.',
-    img: ['/vela-cherry.png', '/pote-vela-grande-mao.png'],
+    img: ['/vela-cherry.png', '/pote-vela-grande-mao.png', '/pote-vela-pequena-mao.png'],
     price: 'R$ 55,00',
     url: '/velas/aromaticas/vela/cherry_blossom',
     otherVolume: true,
@@ -73,7 +89,7 @@ const produtos = ref([
     name: 'Flor de figo',
     description:
       'Sofisticada e única, a Flor de Figo traz um perfume floral adocicado com um leve toque verde. Uma fragrância refinada que transforma qualquer espaço em um refúgio sensorial. Produzida em um pote artesanal de gesso com um pavio maravilhoso de madeira, que além de perfumar, proporciona um toque sonoro relaxante.',
-    img: ['/vela-figo.png', '/pote-vela-grande-mao.png'],
+    img: ['/vela-figo.png', '/pote-vela-grande-mao.png', '/pote-vela-pequena-mao.png'],
     price: 'R$ 55,00',
     url: '/velas/aromaticas/vela/flor_de_figo',
     otherVolume: true,
@@ -95,7 +111,7 @@ const produtos = ref([
     name: 'Lavanda',
     description:
       'Clássica da aromaterapia, a lavanda oferece um perfume herbal e calmante, perfeito para relaxar, meditar ou desacelerar no fim do dia. Em pote artesanal de gesso, com um pavio maravilhoso de madeira que transforma o ato de acender uma vela em um verdadeiro ritual de bem-estar.',
-    img: ['/vela-lavanda.png', '/pote-vela-grande-mao.png'],
+    img: ['/vela-lavanda.png', '/pote-vela-grande-mao.png', '/pote-vela-pequena-mao.png'],
     price: 'R$ 55,00',
     url: '/velas/aromaticas/vela/lavanda',
     otherVolume: true,
@@ -118,7 +134,7 @@ const produtos = ref([
     name: 'Baunilha',
     description:
       'Adoce o ambiente com o calor envolvente da baunilha. Seu aroma cremoso desperta memórias afetivas e sensações de aconchego. Feita em um elegante pote de gesso e acompanhada de um pavio maravilhoso de madeira, que proporciona uma queima charmosa e reconfortante.',
-    img: ['/vela-baunilha.png', '/pote-vela-grande-mao.png'],
+    img: ['/vela-baunilha.png', '/pote-vela-grande-mao.png', '/pote-vela-pequena-mao.png'],
     price: 'R$ 55,00',
     url: '/velas/aromaticas/vela/baunilha',
     otherVolume: true,
@@ -161,7 +177,7 @@ const produtos = ref([
     img: ['/bubble-pequena-branca.png', '/bubble-pequena-mao.png'],
     price: 'R$ 10,00',
     url: '/velas/decorativas/vela/soft-bubble',
-    doTERRA: true,
+    selectAroma: true,
     caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
     composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
     cuidados: [
@@ -179,7 +195,7 @@ const produtos = ref([
     img: ['/bubble-branca.png', '/bubble-mao.png'],
     price: 'R$ 18,00',
     url: '/velas/decorativas/vela/bubble',
-    doTERRA: true,
+    selectAroma: true,
     caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
     composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
     cuidados: [
@@ -232,13 +248,30 @@ const cart = useCartStore();
 
 function comprar() {
   if (!produto.value) return;
+  let produtoCart = {};
 
-  const produtoCart = {
-    ...produto.value,
-    quantity: selectedQty.value,
-    price: selectedPrice.value,
-    withDoTERRA: withDoTERRA.value,
-  };
+  if (produto.value.id == 'bubble' || produto.value.id == 'soft-bubble') {
+    produtoCart = {
+      id: produto.value.id,
+      name: produto.value.name,
+      img: produto.value.img,
+      url: produto.value.url,
+      quantity: selectedQty.value,
+      price: selectedPrice.value,
+      selectedAroma: selectedAroma.value.aroma,
+      withDoTERRA: withDoTERRA.value,
+    };
+  } else {
+    produtoCart = {
+      id: produto.value.id,
+      name: produto.value.name,
+      img: produto.value.img,
+      url: produto.value.url,
+      quantity: selectedQty.value,
+      price: selectedPrice.value,
+      withDoTERRA: withDoTERRA.value,
+    };
+  }
 
   if (produto.value.otherVolume) {
     produtoCart.volume = selectedVolume.value;
@@ -325,18 +358,61 @@ function prevImage() {
           </button>
         </div>
 
-        <button
-          v-if="produto.doTERRA"
-          @click="withDoTERRA = !withDoTERRA"
-          :class="[
-            'px-4 py-2 rounded-md border transition duration-300 ease-in-out w-full cursor-pointer',
-            withDoTERRA === true
-              ? 'bg-[#6f747e] text-white border-[#6f747e]'
-              : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100',
-          ]"
-        >
-          Incluir Óleo doTERRA
-        </button>
+        <div class="w-full" v-if="produto.selectAroma">
+          <label for="aroma" class="block text-sm font-light text-gray-800 mb-2">Escolha o aroma: </label>
+          <div class="relative">
+            <select
+              id="aroma"
+              v-model="selectedAroma"
+              class="block w-full appearance-none px-4 py-3 pr-10 bg-white border border-gray-300 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6f747e] focus:border-[#6f747e] text-sm transition"
+            >
+              <option disabled value="">Selecione um aroma</option>
+              <option v-for="aroma in aromas" :key="aroma" :value="aroma">
+                {{ aroma.aroma }}
+              </option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <svg
+                class="w-5 h-5 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7l3-3 3 3m0 6l-3 3-3-3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <template v-if="!produto.selectAroma">
+          <button
+            v-if="produto.doTERRA"
+            @click="withDoTERRA = !withDoTERRA"
+            :class="[
+              'px-4 py-2 rounded-md border transition duration-300 ease-in-out w-full cursor-pointer',
+              withDoTERRA === true
+                ? 'bg-[#6f747e] text-white border-[#6f747e]'
+                : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100',
+            ]"
+          >
+            Incluir Óleo doTERRA
+          </button>
+        </template>
+        <template v-else>
+          <button
+            v-if="selectedAroma.doTERRA"
+            @click="withDoTERRA = !withDoTERRA"
+            :class="[
+              'px-4 py-2 rounded-md border transition duration-300 ease-in-out w-full cursor-pointer',
+              withDoTERRA === true
+                ? 'bg-[#6f747e] text-white border-[#6f747e]'
+                : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100',
+            ]"
+          >
+            Incluir Óleo doTERRA
+          </button>
+        </template>
 
         <div class="flex items-center w-full space-x-4">
           <QuantitySelector v-model="selectedQty" :min="1" :max="10" />

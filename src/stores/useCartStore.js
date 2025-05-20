@@ -28,7 +28,20 @@ export const useCartStore = defineStore('cart', () => {
   calculateTotalPrice();
 
   function addToCart(produto) {
-    const existing = cartItems.value.find((item) => item.id === produto.id && item.volume === produto.volume);
+    let existing = false;
+
+    if (produto.id === 'bubble' || produto.id === 'soft-bubble') {
+      existing = cartItems.value.find(
+        (item) =>
+          item.id === produto.id &&
+          item.selectedAroma === produto.selectedAroma &&
+          item.withDoTERRA === produto.withDoTERRA
+      );
+    } else {
+      existing = cartItems.value.find(
+        (item) => item.id === produto.id && item.volume === produto.volume && item.withDoTERRA === produto.withDoTERRA
+      );
+    }
 
     if (existing) {
       existing.quantity += produto.quantity;
@@ -39,10 +52,8 @@ export const useCartStore = defineStore('cart', () => {
     countItens.value = cartItems.value.reduce((total, item) => total + item.quantity, 0);
     calculateTotalPrice();
 
-    if (cookieStore.accepted) {
-      Cookies.set('cartItems', JSON.stringify(cartItems.value), { expires: 1 });
-      Cookies.set('countItens', countItens.value, { expires: 1 });
-    }
+    Cookies.set('cartItems', JSON.stringify(cartItems.value), { expires: 1 });
+    Cookies.set('countItens', countItens.value, { expires: 1 });
 
     isCartOpen.value = true;
   }
@@ -66,22 +77,52 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  function increaseQuantity(itemId) {
-    const itemIndex = cartItems.value.findIndex((item) => item.id === itemId);
+  function increaseQuantity(produto) {
+    let itemIndex = -1;
+
+    if (produto.id === 'bubble' || produto.id === 'soft-bubble') {
+      itemIndex = cartItems.value.findIndex(
+        (item) =>
+          item.id === produto.id &&
+          item.selectedAroma === produto.selectedAroma &&
+          item.withDoTERRA === produto.withDoTERRA
+      );
+    } else {
+      itemIndex = cartItems.value.findIndex(
+        (item) => item.id === produto.id && item.volume === produto.volume && item.withDoTERRA === produto.withDoTERRA
+      );
+    }
+
     if (itemIndex !== -1) {
       cartItems.value[itemIndex].quantity++;
       calculateTotalPrice();
+
       if (cookieStore.accepted) {
         Cookies.set('cartItems', JSON.stringify(cartItems.value), { expires: 1 });
       }
     }
   }
 
-  function decreaseQuantity(itemId) {
-    const itemIndex = cartItems.value.findIndex((item) => item.id === itemId);
+  function decreaseQuantity(produto) {
+    let itemIndex = -1;
+
+    if (produto.id === 'bubble' || produto.id === 'soft-bubble') {
+      itemIndex = cartItems.value.findIndex(
+        (item) =>
+          item.id === produto.id &&
+          item.selectedAroma === produto.selectedAroma &&
+          item.withDoTERRA === produto.withDoTERRA
+      );
+    } else {
+      itemIndex = cartItems.value.findIndex(
+        (item) => item.id === produto.id && item.volume === produto.volume && item.withDoTERRA === produto.withDoTERRA
+      );
+    }
+
     if (itemIndex !== -1 && cartItems.value[itemIndex].quantity > 1) {
       cartItems.value[itemIndex].quantity--;
       calculateTotalPrice();
+
       if (cookieStore.accepted) {
         Cookies.set('cartItems', JSON.stringify(cartItems.value), { expires: 1 });
       }
