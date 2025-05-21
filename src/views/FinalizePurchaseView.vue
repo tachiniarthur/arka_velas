@@ -5,9 +5,10 @@ const cart = useCartStore();
 function finalizePurchase() {
   const message = cart.cartItems
     .map((item) => {
-      const doTERRAStatus = item.withDoTERRA ? 'com doTERRA' : 'sem doTERRA';
+      const doTERRAStatus = item.withDoTERRA ? 'Com doTERRA' : 'Sem doTERRA';
+      const selectedAroma = item.selectedAroma ? ` - ${item.selectedAroma}` : '';
 
-      return `🕯️ ${item.name} - ${doTERRAStatus} - Quantidade: ${item.quantity}`;
+      return `🕯️ ${item.name}${selectedAroma} - ${doTERRAStatus} - Quantidade: ${item.quantity}`;
     })
     .join('%0A');
 
@@ -90,7 +91,7 @@ function finalizePurchase() {
           <div v-for="item in cart.cartItems" :key="item.id" class="flex flex-col border-b pb-2">
             <div class="flex items-center gap-4">
               <router-link class="relative w-20 h-20 flex-shrink-0 overflow-hidden" :to="item.url">
-                <img class="w-full h-full object-cover rounded-md" :src="item.img" :alt="item.name" />
+                <img class="w-full h-full object-cover rounded-md" :src="item.img[0]" :alt="item.name" />
               </router-link>
               <div class="flex-1">
                 <p class="font-medium text-gray-800">{{ item.name }}</p>
