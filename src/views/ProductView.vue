@@ -213,7 +213,7 @@ const produtos = ref([
     img: ['/vela-coelho.png', '/vela-coelho2.png'],
     price: 'R$ 12,00',
     url: '/festivas/pascoa/festiva/coelinho',
-    doTERRA: true,
+    selectAroma: true,
     caracteristicas: ['Feita com parafina pura', 'Pavio de algodão ecológico'],
     composicao: ['parafina pura', 'Pavio de algodão ecológico', 'Essências de alta qualidade'],
     cuidados: [
@@ -250,7 +250,7 @@ function comprar() {
   if (!produto.value) return;
   let produtoCart = {};
 
-  if (produto.value.id == 'bubble' || produto.value.id == 'soft-bubble') {
+  if (produto.value.id == 'bubble' || produto.value.id == 'soft-bubble' || produto.value.id == 'coelinho') {
     produtoCart = {
       id: produto.value.id,
       name: produto.value.name,
