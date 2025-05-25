@@ -39,9 +39,6 @@
           <h3 class="text-black text-2xl font-light uppercase mt-2">
             {{ produto.name }}
           </h3>
-          <span class="text-lg text-black font-light uppercase">
-            {{ produto.price }}
-          </span>
         </div>
       </div>
     </div>
